@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "859317682922",
+    "project_id": "cepac-ccb5a",
+    "storage_bucket": "cepac-ccb5a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:859317682922:android:6c2551acba9b30522a0d93",
+        "android_client_info": {
+          "package_name": "br.com.cepac"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "859317682922-5sdqekavs3mm2d5691306b2b31n5n9c9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.cepac",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "859317682922-sgf8ba9u8htsq40uiba8r8cfqqv7f78b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMWkKtb4L1RD-N-vjkIt8TCDzuOEuPOhM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "859317682922-sgf8ba9u8htsq40uiba8r8cfqqv7f78b.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "859317682922-9165tojv6q6a3031ai5nsb8rs4ig1l33.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "br.com.cepac"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
