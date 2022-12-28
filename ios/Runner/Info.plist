@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>CEPAC</string>
+	<string>cepac</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -33,19 +33,7 @@
             </array>
         </dict>
 
-        <dict>
-        <key>CFBundleTypeRole</key>
-        <string>Editor</string>
-        <key>CFBundleURLName</key>
-        <string>cepac.com</string>
-        <key>CFBundleURLSchemes</key>
-        <array>
-        <string>cepac</string>
-        </array>
-        </dict>
     </array>
-    <key>FlutterDeepLinkingEnabled</key>
-    <true/>
 
 
 	<key>CFBundleVersion</key>
@@ -53,7 +41,12 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 
-
+	<key>NSCameraUsageDescription</key>
+      <string>In order to take a picture or video, this app requires permission to access the camera.</string>
+	<key>NSMicrophoneUsageDescription</key>
+      <string>In order to record audio for video, this app requires permission to access the microphone.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+      <string>In order to upload media, this app requires permission to access the photo library.</string>
 
 
 

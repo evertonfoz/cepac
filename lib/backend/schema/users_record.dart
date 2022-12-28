@@ -9,10 +9,10 @@ part 'users_record.g.dart';
 abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   static Serializer<UsersRecord> get serializer => _$usersRecordSerializer;
 
-  String? get email;
-
   @BuiltValueField(wireName: 'display_name')
   String? get displayName;
+
+  String? get email;
 
   @BuiltValueField(wireName: 'photo_url')
   String? get photoUrl;
@@ -25,16 +25,27 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   @BuiltValueField(wireName: 'phone_number')
   String? get phoneNumber;
 
+  String? get userName;
+
+  @BuiltValueField(wireName: 'type_of_profile')
+  String? get typeOfProfile;
+
+  @BuiltValueField(wireName: 'study_group')
+  String? get studyGroup;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(UsersRecordBuilder builder) => builder
-    ..email = ''
     ..displayName = ''
+    ..email = ''
     ..photoUrl = ''
     ..uid = ''
-    ..phoneNumber = '';
+    ..phoneNumber = ''
+    ..userName = ''
+    ..typeOfProfile = ''
+    ..studyGroup = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
@@ -58,23 +69,29 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
 }
 
 Map<String, dynamic> createUsersRecordData({
-  String? email,
   String? displayName,
+  String? email,
   String? photoUrl,
   String? uid,
   DateTime? createdTime,
   String? phoneNumber,
+  String? userName,
+  String? typeOfProfile,
+  String? studyGroup,
 }) {
   final firestoreData = serializers.toFirestore(
     UsersRecord.serializer,
     UsersRecord(
       (u) => u
-        ..email = email
         ..displayName = displayName
+        ..email = email
         ..photoUrl = photoUrl
         ..uid = uid
         ..createdTime = createdTime
-        ..phoneNumber = phoneNumber,
+        ..phoneNumber = phoneNumber
+        ..userName = userName
+        ..typeOfProfile = typeOfProfile
+        ..studyGroup = studyGroup,
     ),
   );
 

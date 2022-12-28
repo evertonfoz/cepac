@@ -50,7 +50,7 @@ class FFButtonWidget extends StatefulWidget {
   final String text;
   final Widget? icon;
   final IconData? iconData;
-  final Function() onPressed;
+  final Function()? onPressed;
   final FFButtonOptions options;
   final bool showLoadingIndicator;
 
@@ -82,21 +82,23 @@ class _FFButtonWidgetState extends State<FFButtonWidget> {
             overflow: TextOverflow.ellipsis,
           );
 
-    final onPressed = widget.showLoadingIndicator
-        ? () async {
-            if (loading) {
-              return;
-            }
-            setState(() => loading = true);
-            try {
-              await widget.onPressed();
-            } finally {
-              if (mounted) {
-                setState(() => loading = false);
+    final onPressed = widget.onPressed != null
+        ? (widget.showLoadingIndicator
+            ? () async {
+                if (loading) {
+                  return;
+                }
+                setState(() => loading = true);
+                try {
+                  await widget.onPressed!();
+                } finally {
+                  if (mounted) {
+                    setState(() => loading = false);
+                  }
+                }
               }
-            }
-          }
-        : () => widget.onPressed();
+            : () => widget.onPressed!())
+        : null;
 
     ButtonStyle style = ButtonStyle(
       shape: MaterialStateProperty.all<OutlinedBorder>(
