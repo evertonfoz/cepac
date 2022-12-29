@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../backend/firebase_storage/storage.dart';
@@ -95,7 +97,7 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Expanded(
-                    flex: 3,
+                    flex: 4,
                     child: Container(
                       width: double.infinity,
                       height: 270,
@@ -503,6 +505,7 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget> {
                                             0, 10, 0, 0),
                                         child: AuthUserStreamWidget(
                                           child: FlutterFlowCheckboxGroup(
+                                            rowHeight: 25,
                                             initiallySelected:
                                                 (currentUserDocument?.workDays
                                                         ?.toList() ??

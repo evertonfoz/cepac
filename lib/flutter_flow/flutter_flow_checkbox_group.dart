@@ -16,6 +16,7 @@ class FlutterFlowCheckboxGroup extends StatefulWidget {
     required this.checkboxBorderColor,
     this.initialized = true,
     this.selectedValuesVariable,
+    this.rowHeight,
   });
 
   final List<String>? initiallySelected;
@@ -30,6 +31,7 @@ class FlutterFlowCheckboxGroup extends StatefulWidget {
   final Color checkboxBorderColor;
   final bool initialized;
   final ValueNotifier<List<String>?>? selectedValuesVariable;
+  final double? rowHeight;
 
   @override
   State<FlutterFlowCheckboxGroup> createState() =>
@@ -78,40 +80,45 @@ class _FlutterFlowCheckboxGroupState extends State<FlutterFlowCheckboxGroup> {
           final option = widget.options[index];
           final selected = checkboxValues.contains(option);
           return Theme(
-            data: ThemeData(unselectedWidgetColor: widget.checkboxBorderColor),
+            data: ThemeData(
+              unselectedWidgetColor: widget.checkboxBorderColor,
+            ),
             child: Padding(
               padding: widget.itemPadding ?? EdgeInsets.zero,
-              child: Row(
-                children: [
-                  Checkbox(
-                    value: selected,
-                    onChanged: widget.onChanged != null
-                        ? (isSelected) {
-                            if (isSelected == null) {
-                              return;
+              child: Container(
+                height: widget.rowHeight,
+                child: Row(
+                  children: [
+                    Checkbox(
+                      value: selected,
+                      onChanged: widget.onChanged != null
+                          ? (isSelected) {
+                              if (isSelected == null) {
+                                return;
+                              }
+                              isSelected
+                                  ? checkboxValues.add(option)
+                                  : checkboxValues.remove(option);
+                              widget.onChanged!(checkboxValues);
+                              setState(() {});
                             }
-                            isSelected
-                                ? checkboxValues.add(option)
-                                : checkboxValues.remove(option);
-                            widget.onChanged!(checkboxValues);
-                            setState(() {});
-                          }
-                        : null,
-                    activeColor: widget.activeColor,
-                    checkColor: widget.checkColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius:
-                          widget.checkboxBorderRadius ?? BorderRadius.zero,
+                          : null,
+                      activeColor: widget.activeColor,
+                      checkColor: widget.checkColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            widget.checkboxBorderRadius ?? BorderRadius.zero,
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: widget.labelPadding ?? EdgeInsets.zero,
-                    child: Text(
-                      widget.options[index],
-                      style: widget.textStyle,
+                    Padding(
+                      padding: widget.labelPadding ?? EdgeInsets.zero,
+                      child: Text(
+                        widget.options[index],
+                        style: widget.textStyle,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );
