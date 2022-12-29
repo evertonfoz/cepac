@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import '../auth/auth_util.dart';
 import '../create_account/create_account_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
@@ -75,7 +77,7 @@ class _LoginWidgetState extends State<LoginWidget>
           ),
         ),
         child: Column(
-          mainAxisSize: MainAxisSize.max,
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
@@ -97,7 +99,7 @@ class _LoginWidgetState extends State<LoginWidget>
             ),
             Container(
               width: double.infinity,
-              height: 500,
+              height: 400,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
@@ -200,6 +202,7 @@ class _LoginWidgetState extends State<LoginWidget>
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
                           child: TextFormField(
+                            textInputAction: TextInputAction.next,
                             controller: emailController,
                             obscureText: false,
                             decoration: InputDecoration(

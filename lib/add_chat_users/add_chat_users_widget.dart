@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_import, unused_import
+
 import '../backend/backend.dart';
 import '../flutter_flow/chat/index.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';

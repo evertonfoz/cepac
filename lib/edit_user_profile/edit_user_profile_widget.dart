@@ -429,6 +429,9 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget> {
                                         'Léon Denis - Obras (quartas)',
                                         'Os missionários da luz (sextas)'
                                       ].toList(),
+                                      initialValue: editUserProfileUsersRecord
+                                              .studyGroup ??
+                                          'none',
                                       onChanged: (val) =>
                                           setState(() => studyGroupValue = val),
                                       optionHeight: 25,

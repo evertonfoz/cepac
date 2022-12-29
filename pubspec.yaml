@@ -1,8 +1,6 @@
 name: cepac
 description: A new Flutter project.
 
-# The following line prevents the package from being accidentally published to
-# pub.dev using `pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
@@ -35,7 +33,9 @@ dependencies:
   cloud_firestore_web: 3.1.1
   collection: 1.16.0
   dash_chat: 1.1.16
-  file_picker: 4.5.1
+  eca_packages:
+    path: ../eca_packages/
+  file_picker: 5.2.4
   firebase_auth: 4.2.0
   firebase_auth_platform_interface: 6.11.4
   firebase_auth_web: 5.2.0
@@ -48,7 +48,7 @@ dependencies:
   flutter_animate: 1.0.0
   flutter_cache_manager: 3.3.0
   flutter_google_places: 0.3.0
-  font_awesome_flutter: 10.1.0
+  font_awesome_flutter: 10.2.1
   from_css_color: 2.0.0
   google_fonts: 3.0.1
   google_sign_in: 5.4.0
