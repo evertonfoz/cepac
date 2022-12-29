@@ -1,6 +1,4 @@
 import '../backend/backend.dart';
-import '../chat_page/chat_page_widget.dart';
-import '../flutter_flow/chat/index.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -24,7 +22,6 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
           .toList();
 
   TextEditingController? textController;
-  ChatsRecord? groupChat;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -299,22 +296,8 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
             child: Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 34),
               child: FFButtonWidget(
-                onPressed: () async {
-                  groupChat = await FFChatManager.instance.createChat(
-                    checkboxListTileCheckedItems
-                        .map((e) => e.reference)
-                        .toList(),
-                  );
-                  await Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ChatPageWidget(
-                        chatRef: groupChat?.reference,
-                      ),
-                    ),
-                  );
-
-                  setState(() {});
+                onPressed: () {
+                  print('Button pressed ...');
                 },
                 text: 'Create Chat',
                 options: FFButtonOptions(

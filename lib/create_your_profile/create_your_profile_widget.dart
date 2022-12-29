@@ -331,7 +331,6 @@ class _CreateYourProfileWidgetState extends State<CreateYourProfileWidget> {
                         onPressed: () async {
                           final usersUpdateData = createUsersRecordData(
                             displayName: yourNameController!.text,
-                            userName: userNameController!.text,
                             photoUrl: random_data.randomImageUrl(
                               0,
                               0,

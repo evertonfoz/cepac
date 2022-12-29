@@ -1,5 +1,3 @@
-import '../auth/auth_util.dart';
-import '../backend/backend.dart';
 import '../backend/firebase_storage/storage.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_media_display.dart';
@@ -8,9 +6,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_video_player.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/upload_media.dart';
-import '../main.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -448,26 +444,8 @@ class _CreateStoryWidgetState extends State<CreateStoryWidget> {
                       ),
                     ),
                     FFButtonWidget(
-                      onPressed: () async {
-                        final userStoriesCreateData =
-                            createUserStoriesRecordData(
-                          user: currentUserReference,
-                          storyVideo: uploadedFileUrl2,
-                          storyPhoto: uploadedFileUrl3,
-                          storyDescription: storyDescriptionController!.text,
-                          storyPostedAt: getCurrentTimestamp,
-                          isOwner: true,
-                        );
-                        await UserStoriesRecord.collection
-                            .doc()
-                            .set(userStoriesCreateData);
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                NavBarPage(initialPage: 'homePage'),
-                          ),
-                        );
+                      onPressed: () {
+                        print('Button pressed ...');
                       },
                       text: 'Create Story',
                       options: FFButtonOptions(

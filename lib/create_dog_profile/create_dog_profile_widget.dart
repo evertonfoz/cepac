@@ -1,11 +1,8 @@
-import '../auth/auth_util.dart';
-import '../backend/backend.dart';
 import '../create_your_profile/create_your_profile_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/random_data_util.dart' as random_data;
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -369,28 +366,8 @@ class _CreateDogProfileWidgetState extends State<CreateDogProfileWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 40),
                           child: FFButtonWidget(
-                            onPressed: () async {
-                              final dogsCreateData = createDogsRecordData(
-                                userAssociation: currentUserReference,
-                                dogPhoto: random_data.randomImageUrl(
-                                  0,
-                                  0,
-                                ),
-                                dogName: dogNameController!.text,
-                                dogType: dogBreedController!.text,
-                                dogAge: dogAgeController!.text,
-                              );
-                              await DogsRecord.collection
-                                  .doc()
-                                  .set(dogsCreateData);
-                              await Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      CreateYourProfileWidget(),
-                                ),
-                                (r) => false,
-                              );
+                            onPressed: () {
+                              print('Button pressed ...');
                             },
                             text: 'Save & Continue',
                             options: FFButtonOptions(

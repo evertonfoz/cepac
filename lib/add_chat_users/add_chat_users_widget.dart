@@ -1,5 +1,4 @@
 import '../backend/backend.dart';
-import '../flutter_flow/chat/index.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -8,12 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AddChatUsersWidget extends StatefulWidget {
-  const AddChatUsersWidget({
-    Key? key,
-    this.chat,
-  }) : super(key: key);
-
-  final ChatsRecord? chat;
+  const AddChatUsersWidget({Key? key}) : super(key: key);
 
   @override
   _AddChatUsersWidgetState createState() => _AddChatUsersWidgetState();
@@ -28,7 +22,6 @@ class _AddChatUsersWidgetState extends State<AddChatUsersWidget> {
           .toList();
 
   TextEditingController? textController;
-  ChatsRecord? groupChat;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -245,9 +238,7 @@ class _AddChatUsersWidgetState extends State<AddChatUsersWidget> {
                                     ),
                                     child: CheckboxListTile(
                                       value: checkboxListTileValueMap[
-                                              listViewUsersRecord] ??=
-                                          widget.chat!.users!.toList().contains(
-                                              listViewUsersRecord.reference),
+                                          listViewUsersRecord] ??= false,
                                       onChanged: (newValue) async {
                                         setState(() => checkboxListTileValueMap[
                                             listViewUsersRecord] = newValue!);
@@ -305,16 +296,8 @@ class _AddChatUsersWidgetState extends State<AddChatUsersWidget> {
             child: Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 34),
               child: FFButtonWidget(
-                onPressed: () async {
-                  groupChat = await FFChatManager.instance.addGroupMembers(
-                    widget.chat!,
-                    checkboxListTileCheckedItems
-                        .map((e) => e.reference)
-                        .toList(),
-                  );
-                  Navigator.pop(context);
-
-                  setState(() {});
+                onPressed: () {
+                  print('Button pressed ...');
                 },
                 text: 'Invite to Chat',
                 options: FFButtonOptions(

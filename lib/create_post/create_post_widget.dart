@@ -1,5 +1,3 @@
-import '../auth/auth_util.dart';
-import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_media_display.dart';
 import '../flutter_flow/flutter_flow_place_picker.dart';
@@ -8,10 +6,8 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_video_player.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/place.dart';
-import '../main.dart';
 import 'dart:io';
 import '../flutter_flow/random_data_util.dart' as random_data;
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -252,30 +248,8 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
             child: Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 40),
               child: FFButtonWidget(
-                onPressed: () async {
-                  final userPostsCreateData = createUserPostsRecordData(
-                    postPhoto: random_data.randomImageUrl(
-                      0,
-                      0,
-                    ),
-                    postDescription: textController!.text,
-                    postUser: currentUserReference,
-                    postTitle: '',
-                    timePosted: getCurrentTimestamp,
-                    postOwner: true,
-                  );
-                  await UserPostsRecord.collection
-                      .doc()
-                      .set(userPostsCreateData);
-                  await Navigator.push(
-                    context,
-                    PageTransition(
-                      type: PageTransitionType.leftToRight,
-                      duration: Duration(milliseconds: 250),
-                      reverseDuration: Duration(milliseconds: 250),
-                      child: NavBarPage(initialPage: 'homePage'),
-                    ),
-                  );
+                onPressed: () {
+                  print('Button pressed ...');
                 },
                 text: 'Create Post',
                 options: FFButtonOptions(

@@ -1,18 +1,11 @@
-import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../main.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DeletePostWidget extends StatefulWidget {
-  const DeletePostWidget({
-    Key? key,
-    this.postParameters,
-  }) : super(key: key);
-
-  final UserPostsRecord? postParameters;
+  const DeletePostWidget({Key? key}) : super(key: key);
 
   @override
   _DeletePostWidgetState createState() => _DeletePostWidgetState();
@@ -33,17 +26,8 @@ class _DeletePostWidgetState extends State<DeletePostWidget> {
           mainAxisSize: MainAxisSize.max,
           children: [
             FFButtonWidget(
-              onPressed: () async {
-                await widget.postParameters!.reference.delete();
-                await Navigator.push(
-                  context,
-                  PageTransition(
-                    type: PageTransitionType.leftToRight,
-                    duration: Duration(milliseconds: 220),
-                    reverseDuration: Duration(milliseconds: 220),
-                    child: NavBarPage(initialPage: 'homePage'),
-                  ),
-                );
+              onPressed: () {
+                print('Button pressed ...');
               },
               text: 'Delete Post',
               options: FFButtonOptions(
