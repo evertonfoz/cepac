@@ -99,14 +99,12 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget> {
                   Expanded(
                     flex: 4,
                     child: Container(
-                      width: double.infinity,
-                      height: 270,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).secondaryBackground,
                       ),
                       child: SingleChildScrollView(
                         child: Column(
-                          mainAxisSize: MainAxisSize.max,
+                          mainAxisSize: MainAxisSize.min,
                           children: [
                             Padding(
                               padding:
@@ -597,7 +595,10 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget> {
                                     phoneNumber:
                                         phoneNumberController?.text ?? '',
                                   ),
-                                  'work_days': workDaysValues,
+                                  'work_days': workDaysValues!.length > 0
+                                      ? workDaysValues
+                                      : editUserProfileUsersRecord.workDays!
+                                          .toList(),
                                 };
                                 await currentUserReference!
                                     .update(usersUpdateData);
