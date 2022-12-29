@@ -75,6 +75,14 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.workDays;
+    if (value != null) {
+      result
+        ..add('work_days')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -129,6 +137,12 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
           result.studyGroup = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'work_days':
+          result.workDays.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -160,6 +174,8 @@ class _$UsersRecord extends UsersRecord {
   @override
   final String? studyGroup;
   @override
+  final BuiltList<String>? workDays;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$UsersRecord([void Function(UsersRecordBuilder)? updates]) =>
@@ -174,6 +190,7 @@ class _$UsersRecord extends UsersRecord {
       this.phoneNumber,
       this.typeOfProfile,
       this.studyGroup,
+      this.workDays,
       this.ffRef})
       : super._();
 
@@ -196,6 +213,7 @@ class _$UsersRecord extends UsersRecord {
         phoneNumber == other.phoneNumber &&
         typeOfProfile == other.typeOfProfile &&
         studyGroup == other.studyGroup &&
+        workDays == other.workDays &&
         ffRef == other.ffRef;
   }
 
@@ -208,14 +226,16 @@ class _$UsersRecord extends UsersRecord {
                     $jc(
                         $jc(
                             $jc(
-                                $jc($jc(0, displayName.hashCode),
-                                    email.hashCode),
-                                photoUrl.hashCode),
-                            uid.hashCode),
-                        createdTime.hashCode),
-                    phoneNumber.hashCode),
-                typeOfProfile.hashCode),
-            studyGroup.hashCode),
+                                $jc(
+                                    $jc($jc(0, displayName.hashCode),
+                                        email.hashCode),
+                                    photoUrl.hashCode),
+                                uid.hashCode),
+                            createdTime.hashCode),
+                        phoneNumber.hashCode),
+                    typeOfProfile.hashCode),
+                studyGroup.hashCode),
+            workDays.hashCode),
         ffRef.hashCode));
   }
 
@@ -230,6 +250,7 @@ class _$UsersRecord extends UsersRecord {
           ..add('phoneNumber', phoneNumber)
           ..add('typeOfProfile', typeOfProfile)
           ..add('studyGroup', studyGroup)
+          ..add('workDays', workDays)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -271,6 +292,11 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   String? get studyGroup => _$this._studyGroup;
   set studyGroup(String? studyGroup) => _$this._studyGroup = studyGroup;
 
+  ListBuilder<String>? _workDays;
+  ListBuilder<String> get workDays =>
+      _$this._workDays ??= new ListBuilder<String>();
+  set workDays(ListBuilder<String>? workDays) => _$this._workDays = workDays;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -290,6 +316,7 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
       _phoneNumber = $v.phoneNumber;
       _typeOfProfile = $v.typeOfProfile;
       _studyGroup = $v.studyGroup;
+      _workDays = $v.workDays?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -311,17 +338,31 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   UsersRecord build() => _build();
 
   _$UsersRecord _build() {
-    final _$result = _$v ??
-        new _$UsersRecord._(
-            displayName: displayName,
-            email: email,
-            photoUrl: photoUrl,
-            uid: uid,
-            createdTime: createdTime,
-            phoneNumber: phoneNumber,
-            typeOfProfile: typeOfProfile,
-            studyGroup: studyGroup,
-            ffRef: ffRef);
+    _$UsersRecord _$result;
+    try {
+      _$result = _$v ??
+          new _$UsersRecord._(
+              displayName: displayName,
+              email: email,
+              photoUrl: photoUrl,
+              uid: uid,
+              createdTime: createdTime,
+              phoneNumber: phoneNumber,
+              typeOfProfile: typeOfProfile,
+              studyGroup: studyGroup,
+              workDays: _workDays?.build(),
+              ffRef: ffRef);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'workDays';
+        _workDays?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'UsersRecord', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

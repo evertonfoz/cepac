@@ -26,9 +26,9 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget> {
 
   TextEditingController? yourNameController;
   TextEditingController? phoneNumberController;
-  List<String>? checkboxGroupValues1;
+  List<String>? checkboxGroupValues;
+  List<String>? workDaysValues;
   String? studyGroupValue;
-  List<String>? checkboxGroupValues2;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -454,26 +454,33 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget> {
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 10, 0, 0),
-                                    child: FlutterFlowCheckboxGroup(
-                                      options: [
-                                        'Domingo',
-                                        'Segunda-Feira',
-                                        'Terça-Feira',
-                                        'Quarta-Feira',
-                                        'Quinta-Feira',
-                                        'Sexta-Feira',
-                                        'Sábado'
-                                      ],
-                                      onChanged: (val) => setState(
-                                          () => checkboxGroupValues1 = val),
-                                      activeColor: FlutterFlowTheme.of(context)
-                                          .primaryColor,
-                                      checkColor: Colors.white,
-                                      checkboxBorderColor: Color(0xFF95A1AC),
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .bodyText1,
-                                      initialized: checkboxGroupValues1 != null,
+                                        0, 10, 0, 50),
+                                    child: AuthUserStreamWidget(
+                                      child: FlutterFlowCheckboxGroup(
+                                        initiallySelected: (currentUserDocument
+                                                ?.workDays
+                                                ?.toList() ??
+                                            []),
+                                        options: [
+                                          'Domingo',
+                                          'Segunda-Feira',
+                                          'Terça-Feira',
+                                          'Quarta-Feira',
+                                          'Quinta-Feira',
+                                          'Sexta-Feira',
+                                          'Sábado'
+                                        ],
+                                        onChanged: (val) => setState(
+                                            () => workDaysValues = val),
+                                        activeColor:
+                                            FlutterFlowTheme.of(context)
+                                                .primaryColor,
+                                        checkColor: Colors.white,
+                                        checkboxBorderColor: Color(0xFF95A1AC),
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .bodyText1,
+                                        initialized: workDaysValues != null,
+                                      ),
                                     ),
                                   ),
                                   FlutterFlowCheckboxGroup(
@@ -488,14 +495,14 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget> {
                                       'Atendimento fraterno'
                                     ],
                                     onChanged: (val) => setState(
-                                        () => checkboxGroupValues2 = val),
+                                        () => checkboxGroupValues = val),
                                     activeColor: FlutterFlowTheme.of(context)
                                         .primaryColor,
                                     checkColor: Colors.white,
                                     checkboxBorderColor: Color(0xFF95A1AC),
                                     textStyle:
                                         FlutterFlowTheme.of(context).bodyText1,
-                                    initialized: checkboxGroupValues2 != null,
+                                    initialized: checkboxGroupValues != null,
                                   ),
                                 ],
                               ),
@@ -515,15 +522,19 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 40),
                           child: FFButtonWidget(
                             onPressed: () async {
-                              final usersUpdateData = createUsersRecordData(
-                                displayName: yourNameController?.text ?? '',
-                                photoUrl: uploadedFileUrl != null &&
-                                        uploadedFileUrl != ''
-                                    ? uploadedFileUrl
-                                    : editUserProfileUsersRecord.photoUrl,
-                                studyGroup: studyGroupValue,
-                                phoneNumber: phoneNumberController?.text ?? '',
-                              );
+                              final usersUpdateData = {
+                                ...createUsersRecordData(
+                                  displayName: yourNameController?.text ?? '',
+                                  photoUrl: uploadedFileUrl != null &&
+                                          uploadedFileUrl != ''
+                                      ? uploadedFileUrl
+                                      : editUserProfileUsersRecord.photoUrl,
+                                  studyGroup: studyGroupValue,
+                                  phoneNumber:
+                                      phoneNumberController?.text ?? '',
+                                ),
+                                'work_days': workDaysValues,
+                              };
                               await currentUserReference!
                                   .update(usersUpdateData);
                               Navigator.pop(context);
