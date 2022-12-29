@@ -1,18 +1,11 @@
-import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../main.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DeleteStoryWidget extends StatefulWidget {
-  const DeleteStoryWidget({
-    Key? key,
-    this.storyDetails,
-  }) : super(key: key);
-
-  final UserStoriesRecord? storyDetails;
+  const DeleteStoryWidget({Key? key}) : super(key: key);
 
   @override
   _DeleteStoryWidgetState createState() => _DeleteStoryWidgetState();
@@ -33,17 +26,8 @@ class _DeleteStoryWidgetState extends State<DeleteStoryWidget> {
           mainAxisSize: MainAxisSize.max,
           children: [
             FFButtonWidget(
-              onPressed: () async {
-                await widget.storyDetails!.reference.delete();
-                await Navigator.push(
-                  context,
-                  PageTransition(
-                    type: PageTransitionType.leftToRight,
-                    duration: Duration(milliseconds: 220),
-                    reverseDuration: Duration(milliseconds: 220),
-                    child: NavBarPage(initialPage: 'homePage'),
-                  ),
-                );
+              onPressed: () {
+                print('Button pressed ...');
               },
               text: 'Delete Story',
               options: FFButtonOptions(

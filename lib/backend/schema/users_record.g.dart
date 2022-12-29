@@ -61,13 +61,6 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.userName;
-    if (value != null) {
-      result
-        ..add('userName')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
     value = object.typeOfProfile;
     if (value != null) {
       result
@@ -128,10 +121,6 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
           result.phoneNumber = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
-        case 'userName':
-          result.userName = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
         case 'type_of_profile':
           result.typeOfProfile = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
@@ -167,8 +156,6 @@ class _$UsersRecord extends UsersRecord {
   @override
   final String? phoneNumber;
   @override
-  final String? userName;
-  @override
   final String? typeOfProfile;
   @override
   final String? studyGroup;
@@ -185,7 +172,6 @@ class _$UsersRecord extends UsersRecord {
       this.uid,
       this.createdTime,
       this.phoneNumber,
-      this.userName,
       this.typeOfProfile,
       this.studyGroup,
       this.ffRef})
@@ -208,7 +194,6 @@ class _$UsersRecord extends UsersRecord {
         uid == other.uid &&
         createdTime == other.createdTime &&
         phoneNumber == other.phoneNumber &&
-        userName == other.userName &&
         typeOfProfile == other.typeOfProfile &&
         studyGroup == other.studyGroup &&
         ffRef == other.ffRef;
@@ -223,14 +208,12 @@ class _$UsersRecord extends UsersRecord {
                     $jc(
                         $jc(
                             $jc(
-                                $jc(
-                                    $jc($jc(0, displayName.hashCode),
-                                        email.hashCode),
-                                    photoUrl.hashCode),
-                                uid.hashCode),
-                            createdTime.hashCode),
-                        phoneNumber.hashCode),
-                    userName.hashCode),
+                                $jc($jc(0, displayName.hashCode),
+                                    email.hashCode),
+                                photoUrl.hashCode),
+                            uid.hashCode),
+                        createdTime.hashCode),
+                    phoneNumber.hashCode),
                 typeOfProfile.hashCode),
             studyGroup.hashCode),
         ffRef.hashCode));
@@ -245,7 +228,6 @@ class _$UsersRecord extends UsersRecord {
           ..add('uid', uid)
           ..add('createdTime', createdTime)
           ..add('phoneNumber', phoneNumber)
-          ..add('userName', userName)
           ..add('typeOfProfile', typeOfProfile)
           ..add('studyGroup', studyGroup)
           ..add('ffRef', ffRef))
@@ -280,10 +262,6 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   String? get phoneNumber => _$this._phoneNumber;
   set phoneNumber(String? phoneNumber) => _$this._phoneNumber = phoneNumber;
 
-  String? _userName;
-  String? get userName => _$this._userName;
-  set userName(String? userName) => _$this._userName = userName;
-
   String? _typeOfProfile;
   String? get typeOfProfile => _$this._typeOfProfile;
   set typeOfProfile(String? typeOfProfile) =>
@@ -310,7 +288,6 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
       _uid = $v.uid;
       _createdTime = $v.createdTime;
       _phoneNumber = $v.phoneNumber;
-      _userName = $v.userName;
       _typeOfProfile = $v.typeOfProfile;
       _studyGroup = $v.studyGroup;
       _ffRef = $v.ffRef;
@@ -342,7 +319,6 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
             uid: uid,
             createdTime: createdTime,
             phoneNumber: phoneNumber,
-            userName: userName,
             typeOfProfile: typeOfProfile,
             studyGroup: studyGroup,
             ffRef: ffRef);
