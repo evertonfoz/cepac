@@ -233,3 +233,7 @@ extension FFStringExt on String {
           ? replaceRange(maxChars, null, replacement)
           : this;
 }
+
+extension ListFilterExt<T> on Iterable<T?> {
+  List<T> get withoutNulls => where((s) => s != null).map((e) => e!).toList();
+}

@@ -34,6 +34,9 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   @BuiltValueField(wireName: 'work_days')
   BuiltList<String>? get workDays;
 
+  @BuiltValueField(wireName: 'proposed_activities')
+  BuiltList<String>? get proposedActivities;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -46,7 +49,8 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..phoneNumber = ''
     ..typeOfProfile = ''
     ..studyGroup = ''
-    ..workDays = ListBuilder();
+    ..workDays = ListBuilder()
+    ..proposedActivities = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
@@ -91,7 +95,8 @@ Map<String, dynamic> createUsersRecordData({
         ..phoneNumber = phoneNumber
         ..typeOfProfile = typeOfProfile
         ..studyGroup = studyGroup
-        ..workDays = null,
+        ..workDays = null
+        ..proposedActivities = null,
     ),
   );
 
