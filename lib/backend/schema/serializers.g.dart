@@ -10,6 +10,9 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(UsersRecord.serializer)
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>()))
     .build();
 

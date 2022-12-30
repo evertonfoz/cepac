@@ -26,7 +26,7 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget> {
 
   TextEditingController? yourNameController;
   TextEditingController? phoneNumberController;
-  List<String>? checkboxGroupValues;
+  List<String>? proposedActivitiesValues;
   List<String>? workDaysValues;
   String? studyGroupValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -496,7 +496,8 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 10, 0, 0),
                                         child: AuthUserStreamWidget(
-                                          child: FlutterFlowCheckboxGroup(
+                                          builder: (context) =>
+                                              FlutterFlowCheckboxGroup(
                                             initiallySelected:
                                                 (currentUserDocument?.workDays
                                                         ?.toList() ??
@@ -528,28 +529,38 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget> {
                                     ),
                                     KeepAliveWidgetWrapper(
                                       builder: (context) =>
-                                          FlutterFlowCheckboxGroup(
-                                        options: [
-                                          'Responsável reunião',
-                                          'Recepção',
-                                          'Dirigente reunião pública',
-                                          'Prece inicial',
-                                          'Encaminhamento',
-                                          'Passe',
-                                          'Servir água',
-                                          'Atendimento fraterno'
-                                        ],
-                                        onChanged: (val) => setState(
-                                            () => checkboxGroupValues = val),
-                                        activeColor:
-                                            FlutterFlowTheme.of(context)
-                                                .primaryColor,
-                                        checkColor: Colors.white,
-                                        checkboxBorderColor: Color(0xFF95A1AC),
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .bodyText1,
-                                        initialized:
-                                            checkboxGroupValues != null,
+                                          AuthUserStreamWidget(
+                                        builder: (context) =>
+                                            FlutterFlowCheckboxGroup(
+                                          initiallySelected:
+                                              (currentUserDocument
+                                                      ?.proposedActivities
+                                                      ?.toList() ??
+                                                  []),
+                                          options: [
+                                            'Responsável reunião',
+                                            'Recepção',
+                                            'Dirigente reunião pública',
+                                            'Prece inicial',
+                                            'Encaminhamento',
+                                            'Passe',
+                                            'Servir água',
+                                            'Atendimento fraterno'
+                                          ],
+                                          onChanged: (val) => setState(() =>
+                                              proposedActivitiesValues = val),
+                                          activeColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .primaryColor,
+                                          checkColor: Colors.white,
+                                          checkboxBorderColor:
+                                              Color(0xFF95A1AC),
+                                          textStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyText1,
+                                          initialized:
+                                              proposedActivitiesValues != null,
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -592,6 +603,12 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget> {
                                       ? workDaysValues
                                       : editUserProfileUsersRecord.workDays!
                                           .toList(),
+                                  'proposed_activities':
+                                      proposedActivitiesValues!.length > 0
+                                          ? proposedActivitiesValues
+                                          : editUserProfileUsersRecord
+                                              .proposedActivities!
+                                              .toList(),
                                 };
                                 await currentUserReference!
                                     .update(usersUpdateData);

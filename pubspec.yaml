@@ -55,6 +55,10 @@ dependencies:
   google_sign_in_platform_interface: 2.2.0
   google_sign_in_web: 0.10.2
   image_picker: 0.8.5+3
+  image_picker_android: 0.8.5+3
+  image_picker_for_web: 2.1.10
+  image_picker_ios: 0.8.6+1
+  image_picker_platform_interface: 2.6.2
   intl: 0.17.0
   json_path: 0.4.1
   json_serializable: 6.3.1
