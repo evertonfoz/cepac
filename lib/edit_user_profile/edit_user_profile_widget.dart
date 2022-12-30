@@ -481,7 +481,8 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 10, 0, 0),
                                         child: AuthUserStreamWidget(
-                                          child: FlutterFlowCheckboxGroup(
+                                          builder: (context) =>
+                                              FlutterFlowCheckboxGroup(
                                             rowHeight: 25,
                                             initiallySelected:
                                                 (currentUserDocument?.workDays
@@ -517,20 +518,21 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget> {
                                           AuthUserStreamWidget(
                                         builder: (context) =>
                                             FlutterFlowCheckboxGroup(
+                                          rowHeight: 25,
                                           initiallySelected:
                                               (currentUserDocument
                                                       ?.proposedActivities
                                                       ?.toList() ??
                                                   []),
                                           options: [
-                                            'Responsável reunião',
-                                            'Recepção',
+                                            'Atendimento fraterno',
                                             'Dirigente reunião pública',
-                                            'Prece inicial',
                                             'Encaminhamento',
                                             'Passe',
-                                            'Servir água',
-                                            'Atendimento fraterno'
+                                            'Prece inicial',
+                                            'Responsável reunião',
+                                            'Recepção',
+                                            'Servir água'
                                           ],
                                           onChanged: (val) => setState(() =>
                                               proposedActivitiesValues = val),
