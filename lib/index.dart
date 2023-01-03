@@ -8,8 +8,8 @@ export 'create_your_profile/create_your_profile_widget.dart'
 export 'forgot_password/forgot_password_widget.dart' show ForgotPasswordWidget;
 export 'home_page/home_page_widget.dart' show HomePageWidget;
 export 'create_story/create_story_widget.dart' show CreateStoryWidget;
-export 'profile_page/profile_page_widget.dart' show ProfilePageWidget;
 export 'create_post/create_post_widget.dart' show CreatePostWidget;
+export 'profile_page/profile_page_widget.dart' show ProfilePageWidget;
 export 'post_details/post_details_widget.dart' show PostDetailsWidget;
 export 'story_details/story_details_widget.dart' show StoryDetailsWidget;
 export 'edit_settings/edit_settings_widget.dart' show EditSettingsWidget;
