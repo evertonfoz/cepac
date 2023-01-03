@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../edit_user_profile/edit_user_profile_widget.dart';
@@ -249,11 +251,18 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget>
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
                             child: AuthUserStreamWidget(
-                              builder: (context) => Text(
-                                valueOrDefault(
-                                    currentUserDocument?.studyGroup, ''),
-                                style: FlutterFlowTheme.of(context).bodyText1,
-                              ),
+                              builder: (context) {
+                                String? studyGroup =
+                                    currentUserDocument?.studyGroup;
+                                if (studyGroup != null) {
+                                  studyGroup =
+                                      studyGroup.replaceAll('\n', ' - ');
+                                }
+                                return Text(
+                                  valueOrDefault(studyGroup, ''),
+                                  style: FlutterFlowTheme.of(context).bodyText1,
+                                );
+                              },
                             ),
                           ),
                         ],
