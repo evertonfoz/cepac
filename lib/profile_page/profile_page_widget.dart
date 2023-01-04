@@ -4,6 +4,7 @@ import '../edit_user_profile/edit_user_profile_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -249,7 +250,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget>
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
                             child: AuthUserStreamWidget(
-                              builder: (context) => Text(
+                              builder: (context) => AutoSizeText(
                                 valueOrDefault(
                                     currentUserDocument?.studyGroup, ''),
                                 style: FlutterFlowTheme.of(context).bodyText1,

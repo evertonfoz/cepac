@@ -1,6 +1,7 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../backend/firebase_storage/storage.dart';
+import '../change_password/change_password_widget.dart';
 import '../flutter_flow/flutter_flow_checkbox_group.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_radio_button.dart';
@@ -574,68 +575,108 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget> {
                   ),
                   Expanded(
                     flex: 1,
-                    child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
-                            child: FFButtonWidget(
-                              onPressed: () async {
-                                final usersUpdateData = {
-                                  ...createUsersRecordData(
-                                    displayName: yourNameController?.text ?? '',
-                                    photoUrl: uploadedFileUrl != null &&
-                                            uploadedFileUrl != ''
-                                        ? uploadedFileUrl
-                                        : editUserProfileUsersRecord.photoUrl,
-                                    studyGroup: studyGroupValue,
-                                    phoneNumber:
-                                        phoneNumberController?.text ?? '',
-                                  ),
-                                  'work_days': workDaysValues!.length > 0
-                                      ? workDaysValues
-                                      : editUserProfileUsersRecord.workDays!
-                                          .toList(),
-                                  'proposed_activities':
-                                      proposedActivitiesValues!.length > 0
-                                          ? proposedActivitiesValues
-                                          : editUserProfileUsersRecord
-                                              .proposedActivities!
-                                              .toList(),
-                                };
-                                await currentUserReference!
-                                    .update(usersUpdateData);
-                                Navigator.pop(context);
-                              },
-                              text: 'Gravar alterações',
-                              options: FFButtonOptions(
-                                width: 200,
-                                height: 50,
-                                color:
-                                    FlutterFlowTheme.of(context).primaryColor,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .subtitle2
-                                    .override(
-                                      fontFamily: 'Urbanist',
-                                      color: Colors.white,
+                    child: Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(4, 0, 4, 0),
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                              child: FFButtonWidget(
+                                onPressed: () async {
+                                  final usersUpdateData = {
+                                    ...createUsersRecordData(
+                                      displayName:
+                                          yourNameController?.text ?? '',
+                                      photoUrl: uploadedFileUrl != null &&
+                                              uploadedFileUrl != ''
+                                          ? uploadedFileUrl
+                                          : editUserProfileUsersRecord.photoUrl,
+                                      studyGroup: studyGroupValue,
+                                      phoneNumber:
+                                          phoneNumberController?.text ?? '',
                                     ),
-                                elevation: 2,
-                                borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1,
+                                    'work_days': workDaysValues!.length > 0
+                                        ? workDaysValues
+                                        : editUserProfileUsersRecord.workDays!
+                                            .toList(),
+                                    'proposed_activities':
+                                        proposedActivitiesValues!.length > 0
+                                            ? proposedActivitiesValues
+                                            : editUserProfileUsersRecord
+                                                .proposedActivities!
+                                                .toList(),
+                                  };
+                                  await currentUserReference!
+                                      .update(usersUpdateData);
+                                  Navigator.pop(context);
+                                },
+                                text: 'Gravar alterações',
+                                options: FFButtonOptions(
+                                  width: 160,
+                                  height: 50,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryColor,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .subtitle2
+                                      .override(
+                                        fontFamily: 'Urbanist',
+                                        color: Colors.white,
+                                      ),
+                                  elevation: 2,
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(40),
                                 ),
-                                borderRadius: BorderRadius.circular(40),
                               ),
                             ),
-                          ),
-                        ],
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                              child: FFButtonWidget(
+                                onPressed: () async {
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          ChangePasswordWidget(),
+                                    ),
+                                  );
+                                },
+                                text: 'Alterar senha',
+                                options: FFButtonOptions(
+                                  width: 160,
+                                  height: 50,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryColor,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .subtitle2
+                                      .override(
+                                        fontFamily: 'Urbanist',
+                                        color: Colors.white,
+                                      ),
+                                  elevation: 2,
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(40),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
