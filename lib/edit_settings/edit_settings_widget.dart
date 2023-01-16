@@ -262,105 +262,102 @@ class _EditSettingsWidgetState extends State<EditSettingsWidget>
                           ),
                         ),
                       ),
-                    if (Theme.of(context).brightness == Brightness.dark)
-                      InkWell(
-                        onTap: () async {
-                          setDarkModeSetting(context, ThemeMode.light);
-                          if (animationsMap[
-                                  'containerOnActionTriggerAnimation1'] !=
-                              null) {
-                            setState(() => hasContainerTriggered1 = true);
-                            SchedulerBinding.instance.addPostFrameCallback(
-                                (_) async => await animationsMap[
-                                        'containerOnActionTriggerAnimation1']!
-                                    .controller
-                                    .forward(from: 0.0));
-                          }
-                        },
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 1,
-                                color: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
-                                offset: Offset(0, 0),
-                              )
-                            ],
-                          ),
-                          child: Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(24, 12, 24, 12),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Switch to Light Mode',
-                                  style: FlutterFlowTheme.of(context).bodyText1,
+                    InkWell(
+                      onTap: () async {
+                        setDarkModeSetting(context, ThemeMode.light);
+                        if (animationsMap[
+                                'containerOnActionTriggerAnimation1'] !=
+                            null) {
+                          setState(() => hasContainerTriggered1 = true);
+                          SchedulerBinding.instance.addPostFrameCallback(
+                              (_) async => await animationsMap[
+                                      'containerOnActionTriggerAnimation1']!
+                                  .controller
+                                  .forward(from: 0.0));
+                        }
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 1,
+                              color: FlutterFlowTheme.of(context)
+                                  .primaryBackground,
+                              offset: Offset(0, 0),
+                            )
+                          ],
+                        ),
+                        child: Padding(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(24, 12, 24, 12),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Switch to Light Mode',
+                                style: FlutterFlowTheme.of(context).bodyText1,
+                              ),
+                              Container(
+                                width: 80,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
+                                  borderRadius: BorderRadius.circular(20),
                                 ),
-                                Container(
-                                  width: 80,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: Stack(
-                                    alignment: AlignmentDirectional(0, 0),
-                                    children: [
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(-0.9, 0),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  8, 2, 0, 0),
-                                          child: Icon(
-                                            Icons.wb_sunny_rounded,
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            size: 24,
-                                          ),
+                                child: Stack(
+                                  alignment: AlignmentDirectional(0, 0),
+                                  children: [
+                                    Align(
+                                      alignment: AlignmentDirectional(-0.9, 0),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            8, 2, 0, 0),
+                                        child: Icon(
+                                          Icons.wb_sunny_rounded,
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          size: 24,
                                         ),
                                       ),
-                                      Align(
-                                        alignment: AlignmentDirectional(0.9, 0),
-                                        child: Container(
-                                          width: 36,
-                                          height: 36,
-                                          decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                            boxShadow: [
-                                              BoxShadow(
-                                                blurRadius: 4,
-                                                color: Color(0x430B0D0F),
-                                                offset: Offset(0, 2),
-                                              )
-                                            ],
-                                            borderRadius:
-                                                BorderRadius.circular(30),
-                                            shape: BoxShape.rectangle,
-                                          ),
-                                        ).animateOnActionTrigger(
-                                            animationsMap[
-                                                'containerOnActionTriggerAnimation2']!,
-                                            hasBeenTriggered:
-                                                hasContainerTriggered2),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                    Align(
+                                      alignment: AlignmentDirectional(0.9, 0),
+                                      child: Container(
+                                        width: 36,
+                                        height: 36,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              blurRadius: 4,
+                                              color: Color(0x430B0D0F),
+                                              offset: Offset(0, 2),
+                                            )
+                                          ],
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          shape: BoxShape.rectangle,
+                                        ),
+                                      ).animateOnActionTrigger(
+                                          animationsMap[
+                                              'containerOnActionTriggerAnimation2']!,
+                                          hasBeenTriggered:
+                                              hasContainerTriggered2),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
+                    ),
                   ],
                 ),
               ),

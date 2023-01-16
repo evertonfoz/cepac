@@ -2,6 +2,7 @@ import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../backend/firebase_storage/storage.dart';
 import '../change_password/change_password_widget.dart';
+import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_checkbox_group.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_radio_button.dart';
@@ -11,6 +12,8 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/upload_media.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -21,7 +24,8 @@ class EditUserProfileWidget extends StatefulWidget {
   _EditUserProfileWidgetState createState() => _EditUserProfileWidgetState();
 }
 
-class _EditUserProfileWidgetState extends State<EditUserProfileWidget> {
+class _EditUserProfileWidgetState extends State<EditUserProfileWidget>
+    with TickerProviderStateMixin {
   bool isMediaUploading = false;
   String uploadedFileUrl = '';
 
@@ -31,6 +35,47 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget> {
   List<String>? workDaysValues;
   String? studyGroupValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  var hasContainerTriggered1 = false;
+  var hasContainerTriggered2 = false;
+  final animationsMap = {
+    'containerOnActionTriggerAnimation1': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: false,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 350.ms,
+          begin: Offset(40, 0),
+          end: Offset(0, 0),
+        ),
+      ],
+    ),
+    'containerOnActionTriggerAnimation2': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: false,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 350.ms,
+          begin: Offset(-40, 0),
+          end: Offset(0, 0),
+        ),
+      ],
+    ),
+  };
+
+  @override
+  void initState() {
+    super.initState();
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
+      this,
+    );
+  }
 
   @override
   void dispose() {
@@ -376,6 +421,206 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget> {
                       ),
                     ),
                   ),
+                  if (Theme.of(context).brightness == Brightness.light)
+                    Expanded(
+                      flex: 1,
+                      child: InkWell(
+                        onTap: () async {
+                          setDarkModeSetting(context, ThemeMode.dark);
+                          if (animationsMap[
+                                  'containerOnActionTriggerAnimation2'] !=
+                              null) {
+                            setState(() => hasContainerTriggered2 = true);
+                            SchedulerBinding.instance.addPostFrameCallback(
+                                (_) async => await animationsMap[
+                                        'containerOnActionTriggerAnimation2']!
+                                    .controller
+                                    .forward(from: 0.0));
+                          }
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 1,
+                                color: FlutterFlowTheme.of(context)
+                                    .primaryBackground,
+                                offset: Offset(0, 0),
+                              )
+                            ],
+                          ),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(24, 12, 24, 12),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Alterar para Dark Mode',
+                                  style: FlutterFlowTheme.of(context).bodyText1,
+                                ),
+                                Container(
+                                  width: 80,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Stack(
+                                    alignment: AlignmentDirectional(0, 0),
+                                    children: [
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional(0.95, 0),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 0, 8, 0),
+                                          child: Icon(
+                                            Icons.nights_stay,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            size: 20,
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional(-0.85, 0),
+                                        child: Container(
+                                          width: 36,
+                                          height: 36,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
+                                            boxShadow: [
+                                              BoxShadow(
+                                                blurRadius: 4,
+                                                color: Color(0x430B0D0F),
+                                                offset: Offset(0, 2),
+                                              )
+                                            ],
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                            shape: BoxShape.rectangle,
+                                          ),
+                                        ).animateOnActionTrigger(
+                                            animationsMap[
+                                                'containerOnActionTriggerAnimation1']!,
+                                            hasBeenTriggered:
+                                                hasContainerTriggered1),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  if (Theme.of(context).brightness == Brightness.dark)
+                    InkWell(
+                      onTap: () async {
+                        setDarkModeSetting(context, ThemeMode.light);
+                        if (animationsMap[
+                                'containerOnActionTriggerAnimation2'] !=
+                            null) {
+                          setState(() => hasContainerTriggered2 = true);
+                          SchedulerBinding.instance.addPostFrameCallback(
+                              (_) async => await animationsMap[
+                                      'containerOnActionTriggerAnimation2']!
+                                  .controller
+                                  .forward(from: 0.0));
+                        }
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 1,
+                              color: FlutterFlowTheme.of(context)
+                                  .primaryBackground,
+                              offset: Offset(0, 0),
+                            )
+                          ],
+                        ),
+                        child: Padding(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(24, 12, 24, 12),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Alterar para Light Mode',
+                                style: FlutterFlowTheme.of(context).bodyText1,
+                              ),
+                              Container(
+                                width: 80,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Stack(
+                                  alignment: AlignmentDirectional(0, 0),
+                                  children: [
+                                    Align(
+                                      alignment: AlignmentDirectional(-0.9, 0),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            8, 2, 0, 0),
+                                        child: Icon(
+                                          Icons.wb_sunny_rounded,
+                                          color: FlutterFlowTheme.of(context)
+                                              .background,
+                                          size: 24,
+                                        ),
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: AlignmentDirectional(0.9, 0),
+                                      child: Container(
+                                        width: 36,
+                                        height: 36,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              blurRadius: 4,
+                                              color: Color(0x430B0D0F),
+                                              offset: Offset(0, 2),
+                                            )
+                                          ],
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          shape: BoxShape.rectangle,
+                                        ),
+                                      ).animateOnActionTrigger(
+                                          animationsMap[
+                                              'containerOnActionTriggerAnimation2']!,
+                                          hasBeenTriggered:
+                                              hasContainerTriggered2),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                   Expanded(
                     flex: 5,
                     child: Padding(
@@ -393,10 +638,15 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget> {
                           child: Column(
                             children: [
                               TabBar(
-                                labelColor:
-                                    FlutterFlowTheme.of(context).primaryColor,
-                                unselectedLabelColor:
-                                    FlutterFlowTheme.of(context).secondaryText,
+                                labelColor: Theme.of(context).brightness ==
+                                        Brightness.light
+                                    ? FlutterFlowTheme.of(context).primaryColor
+                                    : Colors.white,
+                                unselectedLabelColor: Theme.of(context)
+                                            .brightness ==
+                                        Brightness.light
+                                    ? FlutterFlowTheme.of(context).secondaryText
+                                    : Color(0xFFB7BFCD),
                                 labelPadding:
                                     EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
                                 labelStyle:
@@ -476,14 +726,25 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget> {
                                                   .bodyText1
                                                   .override(
                                                     fontFamily: 'Urbanist',
-                                                    color: Colors.black,
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.light
+                                                        ? FlutterFlowTheme.of(
+                                                                context)
+                                                            .primaryText
+                                                        : Colors.white,
                                                   ),
                                           buttonPosition:
                                               RadioButtonPosition.left,
                                           direction: Axis.vertical,
                                           radioButtonColor: Colors.blue,
                                           inactiveRadioButtonColor:
-                                              Color(0x8A000000),
+                                              Theme.of(context).brightness ==
+                                                      Brightness.light
+                                                  ? FlutterFlowTheme.of(context)
+                                                      .primaryText
+                                                  : FlutterFlowTheme.of(context)
+                                                      .background,
                                           toggleable: false,
                                           horizontalAlignment:
                                               WrapAlignment.start,
@@ -514,9 +775,7 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget> {
                                             ],
                                             onChanged: (val) => setState(
                                                 () => workDaysValues = val),
-                                            activeColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primaryColor,
+                                            activeColor: Color(0xFF4833F3),
                                             checkColor: Colors.white,
                                             checkboxBorderColor:
                                                 Color(0xFF95A1AC),
@@ -550,9 +809,7 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget> {
                                           ],
                                           onChanged: (val) => setState(() =>
                                               proposedActivitiesValues = val),
-                                          activeColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .primaryColor,
+                                          activeColor: Color(0xFF4833F3),
                                           checkColor: Colors.white,
                                           checkboxBorderColor:
                                               Color(0xFF95A1AC),
@@ -630,7 +887,8 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget> {
                                       .subtitle2
                                       .override(
                                         fontFamily: 'Urbanist',
-                                        color: Colors.white,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryBackground,
                                       ),
                                   elevation: 2,
                                   borderSide: BorderSide(
@@ -664,7 +922,8 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget> {
                                       .subtitle2
                                       .override(
                                         fontFamily: 'Urbanist',
-                                        color: Colors.white,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryBackground,
                                       ),
                                   elevation: 2,
                                   borderSide: BorderSide(

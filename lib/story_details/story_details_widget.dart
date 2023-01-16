@@ -331,20 +331,28 @@ class _StoryDetailsWidgetState extends State<StoryDetailsWidget> {
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
-                                        FlutterFlowIconButton(
-                                          borderColor: Colors.transparent,
-                                          borderRadius: 30,
-                                          buttonSize: 48,
-                                          icon: Icon(
-                                            Icons.ios_share,
-                                            color: FlutterFlowTheme.of(context)
-                                                .tertiaryColor,
-                                            size: 30,
+                                        Builder(
+                                          builder: (context) =>
+                                              FlutterFlowIconButton(
+                                            borderColor: Colors.transparent,
+                                            borderRadius: 30,
+                                            buttonSize: 48,
+                                            icon: Icon(
+                                              Icons.ios_share,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .tertiaryColor,
+                                              size: 30,
+                                            ),
+                                            onPressed: () async {
+                                              await Share.share(
+                                                'This post is really awesome!',
+                                                sharePositionOrigin:
+                                                    getWidgetBoundingBox(
+                                                        context),
+                                              );
+                                            },
                                           ),
-                                          onPressed: () async {
-                                            await Share.share(
-                                                'This post is really awesome!');
-                                          },
                                         ),
                                       ],
                                     ),

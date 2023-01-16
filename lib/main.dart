@@ -165,7 +165,7 @@ class _NavBarPageState extends State<NavBarPage> {
               Icons.account_circle,
               size: 24,
             ),
-            label: 'Profile',
+            label: 'Perfil',
             tooltip: '',
           )
         ],
