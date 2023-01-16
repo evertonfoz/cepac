@@ -59,14 +59,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 3,
-                  color: Color(0x3A000000),
-                  offset: Offset(0, 1),
-                )
-              ],
               borderRadius: BorderRadius.circular(0),
             ),
             child: Padding(
