@@ -34,7 +34,9 @@ dependencies:
   collection: 1.16.0
   dash_chat: 1.1.16
   eca_packages:
-    path: ../eca_packages/
+    git:
+      url: https://github.com/evertonfoz/eca_packages.git
+      ref: main
   file_picker: 5.2.4
   firebase_auth: 4.2.0
   firebase_auth_platform_interface: 6.11.4
@@ -76,6 +78,7 @@ dependencies:
   sign_in_with_apple_web: 1.0.1
   smooth_page_indicator: 1.0.0+2
   sqflite: 2.2.0+2
+  status_bar_control: ^3.2.1
   timeago: 3.2.2
   url_launcher: 6.1.5
   video_player: 2.4.5

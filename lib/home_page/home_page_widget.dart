@@ -1,3 +1,7 @@
+// ignore_for_file: unused_import
+
+import 'package:status_bar_control/status_bar_control.dart';
+
 import '../auth/auth_util.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -14,6 +18,16 @@ class HomePageWidget extends StatefulWidget {
 
 class _HomePageWidgetState extends State<HomePageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    StatusBarControl.setHidden(
+      false,
+      animation: StatusBarAnimation.SLIDE,
+    );
+    StatusBarControl.setColor(Colors.transparent);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

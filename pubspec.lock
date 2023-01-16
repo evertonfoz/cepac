@@ -354,10 +354,12 @@ packages:
   eca_packages:
     dependency: "direct main"
     description:
-      path: "../eca_packages"
-      relative: true
-    source: path
-    version: "0.0.1+2"
+      path: "."
+      ref: main
+      resolved-ref: e1ab9e75571d09139c2f730b2f28eb1e171eab87
+      url: "https://github.com/evertonfoz/eca_packages.git"
+    source: git
+    version: "0.0.1+4"
   equatable:
     dependency: transitive
     description:
@@ -1364,7 +1366,7 @@ packages:
     source: hosted
     version: "1.10.0"
   status_bar_control:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: status_bar_control
       url: "https://pub.dartlang.org"
