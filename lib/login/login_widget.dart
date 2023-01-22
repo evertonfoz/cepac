@@ -90,11 +90,11 @@ class _LoginWidgetState extends State<LoginWidget>
                   Align(
                     alignment: AlignmentDirectional(0, 0),
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(24, 56, 0, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(24, 28, 0, 0),
                       child: Image.asset(
                         'assets/images/logo.png',
                         width: 60,
-                        height: 40,
+                        height: 60,
                         fit: BoxFit.contain,
                       ),
                     ),
