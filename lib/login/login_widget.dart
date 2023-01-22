@@ -6,6 +6,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../forgot_password/forgot_password_widget.dart';
 import '../main.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -141,46 +142,55 @@ class _LoginWidgetState extends State<LoginWidget>
                                 EdgeInsetsDirectional.fromSTEB(24, 0, 24, 12),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Text(
-                                  'Acesse sua conta abaixo ou',
-                                  style: FlutterFlowTheme.of(context).bodyText1,
-                                ),
-                                FFButtonWidget(
-                                  onPressed: () async {
-                                    await Navigator.push(
-                                      context,
-                                      PageTransition(
-                                        type: PageTransitionType.fade,
-                                        duration: Duration(milliseconds: 200),
-                                        reverseDuration:
-                                            Duration(milliseconds: 200),
-                                        child: CreateAccountWidget(),
-                                      ),
-                                    );
-                                  },
-                                  text: 'Crie agora sua conta',
-                                  options: FFButtonOptions(
-                                    width: 160,
-                                    height: 28,
-                                    color: Color(0x00FFFFFF),
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .subtitle2
+                                Expanded(
+                                  child: AutoSizeText(
+                                    'Acesse sua conta abaixo ou',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
                                         .override(
                                           fontFamily: 'Urbanist',
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryColor,
-                                          fontSize: 14,
+                                          fontSize: 12,
                                         ),
-                                    elevation: 0,
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
                                   ),
-                                ).animateOnPageLoad(animationsMap[
-                                    'buttonOnPageLoadAnimation']!),
+                                ),
+                                Expanded(
+                                  child: FFButtonWidget(
+                                    onPressed: () async {
+                                      await Navigator.push(
+                                        context,
+                                        PageTransition(
+                                          type: PageTransitionType.fade,
+                                          duration: Duration(milliseconds: 200),
+                                          reverseDuration:
+                                              Duration(milliseconds: 200),
+                                          child: CreateAccountWidget(),
+                                        ),
+                                      );
+                                    },
+                                    text: 'Crie agora sua conta',
+                                    options: FFButtonOptions(
+                                      height: 28,
+                                      color: Color(0x00FFFFFF),
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .subtitle2
+                                          .override(
+                                            fontFamily: 'Urbanist',
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryColor,
+                                            fontSize: 12,
+                                          ),
+                                      elevation: 0,
+                                      borderSide: BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                  ).animateOnPageLoad(animationsMap[
+                                      'buttonOnPageLoadAnimation']!),
+                                ),
                               ],
                             ),
                           ),
