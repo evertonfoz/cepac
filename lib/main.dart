@@ -1,5 +1,6 @@
 // ignore_for_file: unused_import
 
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -26,6 +27,7 @@ void main() async {
   await FlutterFlowTheme.initialize();
 
   runApp(MyApp());
+  // runApp(DevicePreview(builder: (context) => MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -78,6 +80,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      // useInheritedMediaQuery: true,
+      // locale: DevicePreview.locale(context),
+      // builder: DevicePreview.appBuilder,
       title: 'cepac',
       localizationsDelegates: [
         FFLocalizationsDelegate(),

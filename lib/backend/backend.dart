@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_import
+
 import 'package:built_value/serializer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';

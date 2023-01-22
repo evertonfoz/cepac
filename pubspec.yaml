@@ -33,6 +33,7 @@ dependencies:
   cloud_firestore_web: 3.1.1
   collection: 1.16.0
   dash_chat: 1.1.16
+  device_preview: ^1.1.0
   eca_packages:
     git:
       url: https://github.com/evertonfoz/eca_packages.git
