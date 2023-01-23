@@ -1,13 +1,10 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../change_password/change_password_widget.dart';
-import '../edit_user_profile/edit_user_profile_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../login/login_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -63,6 +60,8 @@ class _EditSettingsWidgetState extends State<EditSettingsWidget>
           !anim.applyInitialState),
       this,
     );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -108,7 +107,7 @@ class _EditSettingsWidgetState extends State<EditSettingsWidget>
                   size: 30,
                 ),
                 onPressed: () async {
-                  Navigator.pop(context);
+                  context.pop();
                 },
               ),
             ],
@@ -389,12 +388,7 @@ class _EditSettingsWidgetState extends State<EditSettingsWidget>
                       ),
                       child: InkWell(
                         onTap: () async {
-                          await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => EditUserProfileWidget(),
-                            ),
-                          );
+                          context.pushNamed('editUserProfile');
                         },
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
@@ -431,12 +425,7 @@ class _EditSettingsWidgetState extends State<EditSettingsWidget>
                     ),
                     child: InkWell(
                       onTap: () async {
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ChangePasswordWidget(),
-                          ),
-                        );
+                        context.pushNamed('changePassword');
                       },
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
@@ -473,14 +462,10 @@ class _EditSettingsWidgetState extends State<EditSettingsWidget>
                   children: [
                     FFButtonWidget(
                       onPressed: () async {
+                        GoRouter.of(context).prepareAuthEvent();
                         await signOut();
-                        await Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => LoginWidget(),
-                          ),
-                          (r) => false,
-                        );
+
+                        context.goNamedAuth('login', mounted);
                       },
                       text: 'Sair',
                       options: FFButtonOptions(

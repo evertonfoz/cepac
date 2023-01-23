@@ -13,6 +13,13 @@ class DeleteStoryWidget extends StatefulWidget {
 
 class _DeleteStoryWidgetState extends State<DeleteStoryWidget> {
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
@@ -49,7 +56,7 @@ class _DeleteStoryWidgetState extends State<DeleteStoryWidget> {
               padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
               child: FFButtonWidget(
                 onPressed: () async {
-                  Navigator.pop(context);
+                  context.pop();
                 },
                 text: 'Cancel',
                 options: FFButtonOptions(

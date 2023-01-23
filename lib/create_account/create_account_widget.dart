@@ -4,8 +4,6 @@ import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../login/login_widget.dart';
-import '../main.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -55,6 +53,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget>
     passwordVisibility = false;
     passwordConfirmController = TextEditingController();
     passwordConfirmVisibility = false;
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -156,15 +155,16 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget>
                                 ),
                                 FFButtonWidget(
                                   onPressed: () async {
-                                    await Navigator.push(
-                                      context,
-                                      PageTransition(
-                                        type: PageTransitionType.fade,
-                                        duration: Duration(milliseconds: 200),
-                                        reverseDuration:
-                                            Duration(milliseconds: 200),
-                                        child: LoginWidget(),
-                                      ),
+                                    context.pushNamed(
+                                      'login',
+                                      extra: <String, dynamic>{
+                                        kTransitionInfoKey: TransitionInfo(
+                                          hasTransition: true,
+                                          transitionType:
+                                              PageTransitionType.fade,
+                                          duration: Duration(milliseconds: 200),
+                                        ),
+                                      },
                                     );
                                   },
                                   text: 'Acesse',
@@ -519,6 +519,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget>
                                   EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                               child: FFButtonWidget(
                                 onPressed: () async {
+                                  GoRouter.of(context).prepareAuthEvent();
                                   if (passwordController?.text !=
                                       passwordConfirmController?.text) {
                                     ScaffoldMessenger.of(context).showSnackBar(
@@ -548,14 +549,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget>
                                       .doc(user.uid)
                                       .update(usersCreateData);
 
-                                  await Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          NavBarPage(initialPage: 'homePage'),
-                                    ),
-                                    (r) => false,
-                                  );
+                                  context.goNamedAuth('homePage', mounted);
                                 },
                                 text: 'Criar Conta',
                                 options: FFButtonOptions(

@@ -28,6 +28,7 @@ class _AddChatUsersWidgetState extends State<AddChatUsersWidget> {
   void initState() {
     super.initState();
     textController = TextEditingController();
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -54,7 +55,7 @@ class _AddChatUsersWidgetState extends State<AddChatUsersWidget> {
             size: 24,
           ),
           onPressed: () async {
-            Navigator.pop(context);
+            context.pop();
           },
         ),
         title: Column(

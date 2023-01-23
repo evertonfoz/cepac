@@ -1,4 +1,3 @@
-import '../create_post/create_post_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +11,13 @@ class CreateModalWidget extends StatefulWidget {
 }
 
 class _CreateModalWidgetState extends State<CreateModalWidget> {
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -140,14 +146,15 @@ class _CreateModalWidgetState extends State<CreateModalWidget> {
           ),
           InkWell(
             onTap: () async {
-              await Navigator.push(
-                context,
-                PageTransition(
-                  type: PageTransitionType.bottomToTop,
-                  duration: Duration(milliseconds: 200),
-                  reverseDuration: Duration(milliseconds: 200),
-                  child: CreatePostWidget(),
-                ),
+              context.pushNamed(
+                'createPost',
+                extra: <String, dynamic>{
+                  kTransitionInfoKey: TransitionInfo(
+                    hasTransition: true,
+                    transitionType: PageTransitionType.bottomToTop,
+                    duration: Duration(milliseconds: 200),
+                  ),
+                },
               );
             },
             child: Container(

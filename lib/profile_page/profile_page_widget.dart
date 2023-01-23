@@ -1,11 +1,9 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../edit_user_profile/edit_user_profile_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../login/login_widget.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -56,6 +54,8 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget>
   @override
   void initState() {
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -376,12 +376,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget>
                           alignment: AlignmentDirectional(0.95, 1),
                           child: InkWell(
                             onTap: () async {
-                              await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => EditUserProfileWidget(),
-                                ),
-                              );
+                              context.pushNamed('editUserProfile');
                             },
                             child: Lottie.asset(
                               'assets/lottie_animations/98723-search-users.json',
@@ -395,12 +390,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget>
                         ),
                         InkWell(
                           onTap: () async {
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => EditUserProfileWidget(),
-                              ),
-                            );
+                            context.pushNamed('editUserProfile');
                           },
                           child: Text(
                             'Atualizar perfil',
@@ -429,14 +419,10 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget>
                       size: 30,
                     ),
                     onPressed: () async {
+                      GoRouter.of(context).prepareAuthEvent();
                       await signOut();
-                      await Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => LoginWidget(),
-                        ),
-                        (r) => false,
-                      );
+
+                      context.goNamedAuth('login', mounted);
                     },
                   ),
                 ),

@@ -15,6 +15,13 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
@@ -33,7 +40,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
             size: 24,
           ),
           onPressed: () async {
-            Navigator.pop(context);
+            context.pop();
           },
         ),
         title: Stack(

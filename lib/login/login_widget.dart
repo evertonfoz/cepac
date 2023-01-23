@@ -1,11 +1,8 @@
 import '../auth/auth_util.dart';
-import '../create_account/create_account_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../forgot_password/forgot_password_widget.dart';
-import '../main.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -50,6 +47,7 @@ class _LoginWidgetState extends State<LoginWidget>
     emailController = TextEditingController();
     passwordController = TextEditingController();
     passwordVisibility = false;
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -158,15 +156,17 @@ class _LoginWidgetState extends State<LoginWidget>
                                 Expanded(
                                   child: FFButtonWidget(
                                     onPressed: () async {
-                                      await Navigator.push(
-                                        context,
-                                        PageTransition(
-                                          type: PageTransitionType.fade,
-                                          duration: Duration(milliseconds: 200),
-                                          reverseDuration:
-                                              Duration(milliseconds: 200),
-                                          child: CreateAccountWidget(),
-                                        ),
+                                      context.pushNamed(
+                                        'createAccount',
+                                        extra: <String, dynamic>{
+                                          kTransitionInfoKey: TransitionInfo(
+                                            hasTransition: true,
+                                            transitionType:
+                                                PageTransitionType.fade,
+                                            duration:
+                                                Duration(milliseconds: 200),
+                                          ),
+                                        },
                                       );
                                     },
                                     text: 'Crie agora sua conta',
@@ -345,13 +345,7 @@ class _LoginWidgetState extends State<LoginWidget>
                                   EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                               child: FFButtonWidget(
                                 onPressed: () async {
-                                  await Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          ForgotPasswordWidget(),
-                                    ),
-                                  );
+                                  context.pushNamed('forgotPassword');
                                 },
                                 text: 'Esqueceu a senha?',
                                 options: FFButtonOptions(
@@ -381,6 +375,8 @@ class _LoginWidgetState extends State<LoginWidget>
                                   EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                               child: FFButtonWidget(
                                 onPressed: () async {
+                                  GoRouter.of(context).prepareAuthEvent();
+
                                   final user = await signInWithEmail(
                                     context,
                                     emailController!.text,
@@ -390,14 +386,7 @@ class _LoginWidgetState extends State<LoginWidget>
                                     return;
                                   }
 
-                                  await Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          NavBarPage(initialPage: 'homePage'),
-                                    ),
-                                    (r) => false,
-                                  );
+                                  context.goNamedAuth('homePage', mounted);
                                 },
                                 text: 'Acessar',
                                 options: FFButtonOptions(
