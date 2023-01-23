@@ -24,6 +24,7 @@ export 'package:intl/intl.dart';
 export 'package:cloud_firestore/cloud_firestore.dart'
     show DocumentReference, FirebaseFirestore;
 export 'package:page_transition/page_transition.dart';
+export 'nav/nav.dart';
 
 T valueOrDefault<T>(T? value, T defaultValue) =>
     (value is String && value.isEmpty) || value == null ? defaultValue : value;

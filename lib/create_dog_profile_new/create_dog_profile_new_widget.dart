@@ -30,6 +30,7 @@ class _CreateDogProfileNewWidgetState extends State<CreateDogProfileNewWidget> {
     dogAgeController = TextEditingController();
     dogBreedController = TextEditingController();
     dogNameController = TextEditingController();
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -64,7 +65,7 @@ class _CreateDogProfileNewWidgetState extends State<CreateDogProfileNewWidget> {
               size: 30,
             ),
             onPressed: () async {
-              Navigator.pop(context);
+              context.pop();
             },
           ),
         ],

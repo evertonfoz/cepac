@@ -26,6 +26,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       animation: StatusBarAnimation.SLIDE,
     );
     StatusBarControl.setColor(Colors.transparent);
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+
     super.initState();
   }
 

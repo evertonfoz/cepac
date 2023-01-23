@@ -33,7 +33,19 @@
             </array>
         </dict>
 
+        <dict>
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+        <key>CFBundleURLName</key>
+        <string>cepac.com</string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+        <string>cepac</string>
+        </array>
+        </dict>
     </array>
+    <key>FlutterDeepLinkingEnabled</key>
+    <true/>
 
 
 	<key>CFBundleVersion</key>

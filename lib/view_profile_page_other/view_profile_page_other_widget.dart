@@ -25,6 +25,13 @@ class _ViewProfilePageOtherWidgetState
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder<UsersRecord>(
       stream: UsersRecord.getDocument(widget.userDetails!.reference),
@@ -58,7 +65,7 @@ class _ViewProfilePageOtherWidgetState
                 size: 24,
               ),
               onPressed: () async {
-                Navigator.pop(context);
+                context.pop();
               },
             ),
             actions: [],

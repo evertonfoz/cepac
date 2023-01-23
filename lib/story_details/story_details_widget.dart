@@ -24,6 +24,13 @@ class _StoryDetailsWidgetState extends State<StoryDetailsWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
@@ -233,8 +240,7 @@ class _StoryDetailsWidgetState extends State<StoryDetailsWidget> {
                                                           size: 20,
                                                         ),
                                                         onPressed: () async {
-                                                          Navigator.pop(
-                                                              context);
+                                                          context.pop();
                                                         },
                                                       ),
                                                     ),

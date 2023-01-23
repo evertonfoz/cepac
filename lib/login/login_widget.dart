@@ -1,13 +1,10 @@
 // ignore_for_file: unused_import
 
 import '../auth/auth_util.dart';
-import '../create_account/create_account_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../forgot_password/forgot_password_widget.dart';
-import '../main.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -52,6 +49,7 @@ class _LoginWidgetState extends State<LoginWidget>
     emailController = TextEditingController();
     passwordController = TextEditingController();
     passwordVisibility = false;
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

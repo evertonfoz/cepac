@@ -18,6 +18,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
   void initState() {
     super.initState();
     textController = TextEditingController();
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

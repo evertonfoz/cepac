@@ -3,7 +3,6 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../backend/firebase_storage/storage.dart';
-import '../change_password/change_password_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_checkbox_group.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
@@ -77,6 +76,8 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget>
           !anim.applyInitialState),
       this,
     );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -120,7 +121,7 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget>
                 size: 24,
               ),
               onPressed: () async {
-                Navigator.pop(context);
+                context.pop();
               },
             ),
             title: Text(
@@ -862,7 +863,7 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget>
                                   };
                                   await currentUserReference!
                                       .update(usersUpdateData);
-                                  Navigator.pop(context);
+                                  context.pop();
                                 },
                                 text: 'Gravar alterações',
                                 options: FFButtonOptions(
@@ -891,13 +892,7 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget>
                                   EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                               child: FFButtonWidget(
                                 onPressed: () async {
-                                  await Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          ChangePasswordWidget(),
-                                    ),
-                                  );
+                                  context.pushNamed('changePassword');
                                 },
                                 text: 'Alterar senha',
                                 options: FFButtonOptions(

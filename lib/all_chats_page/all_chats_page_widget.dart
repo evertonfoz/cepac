@@ -1,6 +1,3 @@
-// ignore_for_file: unused_import
-
-import '../create_group_chat/create_group_chat_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -17,18 +14,20 @@ class _AllChatsPageWidgetState extends State<AllChatsPageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          await Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => CreateGroupChatWidget(),
-            ),
-          );
+          context.pushNamed('createGroupChat');
         },
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         elevation: 8,
