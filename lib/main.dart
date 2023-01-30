@@ -27,8 +27,8 @@ void main() async {
 
   await FlutterFlowTheme.initialize();
 
-  // runApp(MyApp());
-  runApp(DevicePreview(builder: (context) => MyApp()));
+  runApp(MyApp());
+  // runApp(DevicePreview(builder: (context) => MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -86,16 +86,16 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       useInheritedMediaQuery: true,
-      locale: DevicePreview.locale(context),
-      builder: DevicePreview.appBuilder,
-      title: 'cepac',
+      // locale: DevicePreview.locale(context),
+      // builder: DevicePreview.appBuilder,
+      title: 'CEPAC',
       localizationsDelegates: [
         FFLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      // locale: _locale,
+      locale: _locale,
       supportedLocales: const [Locale('en', '')],
       theme: ThemeData(brightness: Brightness.light),
       darkTheme: ThemeData(brightness: Brightness.dark),
