@@ -6,6 +6,9 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'view_profile_page_other_model.dart';
+export 'view_profile_page_other_model.dart';
 
 class ViewProfilePageOtherWidget extends StatefulWidget {
   const ViewProfilePageOtherWidget({
@@ -22,13 +25,23 @@ class ViewProfilePageOtherWidget extends StatefulWidget {
 
 class _ViewProfilePageOtherWidgetState
     extends State<ViewProfilePageOtherWidget> {
+  late ViewProfilePageOtherModel _model;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
+    _model = createModel(context, () => ViewProfilePageOtherModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    _model.dispose();
+
+    super.dispose();
   }
 
   @override

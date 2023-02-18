@@ -3,6 +3,9 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'comments_model.dart';
+export 'comments_model.dart';
 
 class CommentsWidget extends StatefulWidget {
   const CommentsWidget({Key? key}) : super(key: key);
@@ -12,18 +15,27 @@ class CommentsWidget extends StatefulWidget {
 }
 
 class _CommentsWidgetState extends State<CommentsWidget> {
-  TextEditingController? textController;
+  late CommentsModel _model;
+
+  @override
+  void setState(VoidCallback callback) {
+    super.setState(callback);
+    _model.onUpdate();
+  }
 
   @override
   void initState() {
     super.initState();
-    textController = TextEditingController();
+    _model = createModel(context, () => CommentsModel());
+
+    _model.textController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
   void dispose() {
-    textController?.dispose();
+    _model.maybeDispose();
+
     super.dispose();
   }
 
@@ -193,7 +205,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(16, 4, 0, 4),
                       child: TextFormField(
-                        controller: textController,
+                        controller: _model.textController,
                         obscureText: false,
                         decoration: InputDecoration(
                           hintText: 'Comment here...',
@@ -240,6 +252,8 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                           ),
                         ),
                         style: FlutterFlowTheme.of(context).bodyText1,
+                        validator:
+                            _model.textControllerValidator.asValidator(context),
                       ),
                     ),
                   ),

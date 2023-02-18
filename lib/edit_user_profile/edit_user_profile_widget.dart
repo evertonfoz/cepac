@@ -15,6 +15,9 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'edit_user_profile_model.dart';
+export 'edit_user_profile_model.dart';
 
 class EditUserProfileWidget extends StatefulWidget {
   const EditUserProfileWidget({Key? key}) : super(key: key);
@@ -25,14 +28,8 @@ class EditUserProfileWidget extends StatefulWidget {
 
 class _EditUserProfileWidgetState extends State<EditUserProfileWidget>
     with TickerProviderStateMixin {
-  bool isMediaUploading = false;
-  String uploadedFileUrl = '';
+  late EditUserProfileModel _model;
 
-  TextEditingController? yourNameController;
-  TextEditingController? phoneNumberController;
-  List<String>? proposedActivitiesValues;
-  List<String>? workDaysValues;
-  String? studyGroupValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   var hasContainerTriggered1 = false;
   var hasContainerTriggered2 = false;
@@ -68,6 +65,8 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget>
   @override
   void initState() {
     super.initState();
+    _model = createModel(context, () => EditUserProfileModel());
+
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
@@ -80,8 +79,8 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget>
 
   @override
   void dispose() {
-    phoneNumberController?.dispose();
-    yourNameController?.dispose();
+    _model.dispose();
+
     super.dispose();
   }
 
@@ -188,7 +187,10 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget>
                                         selectedMedia.every((m) =>
                                             validateFileFormat(
                                                 m.storagePath, context))) {
-                                      setState(() => isMediaUploading = true);
+                                      setState(
+                                          () => _model.isMediaUploading = true);
+                                      var selectedUploadedFiles =
+                                          <FFUploadedFile>[];
                                       var downloadUrls = <String>[];
                                       try {
                                         showUploadMessage(
@@ -196,6 +198,17 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget>
                                           'Uploading file...',
                                           showLoading: true,
                                         );
+                                        selectedUploadedFiles = selectedMedia
+                                            .map((m) => FFUploadedFile(
+                                                  name: m.storagePath
+                                                      .split('/')
+                                                      .last,
+                                                  bytes: m.bytes,
+                                                  height: m.dimensions?.height,
+                                                  width: m.dimensions?.width,
+                                                ))
+                                            .toList();
+
                                         downloadUrls = (await Future.wait(
                                           selectedMedia.map(
                                             (m) async => await uploadData(
@@ -208,12 +221,18 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget>
                                       } finally {
                                         ScaffoldMessenger.of(context)
                                             .hideCurrentSnackBar();
-                                        isMediaUploading = false;
+                                        _model.isMediaUploading = false;
                                       }
-                                      if (downloadUrls.length ==
-                                          selectedMedia.length) {
-                                        setState(() => uploadedFileUrl =
-                                            downloadUrls.first);
+                                      if (selectedUploadedFiles.length ==
+                                              selectedMedia.length &&
+                                          downloadUrls.length ==
+                                              selectedMedia.length) {
+                                        setState(() {
+                                          _model.uploadedLocalFile =
+                                              selectedUploadedFiles.first;
+                                          _model.uploadedFileUrl =
+                                              downloadUrls.first;
+                                        });
                                         showUploadMessage(context, 'Success!');
                                       } else {
                                         setState(() {});
@@ -245,10 +264,11 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget>
                                                 fit: BoxFit.fitWidth,
                                                 image: Image.network(
                                                   valueOrDefault<String>(
-                                                    uploadedFileUrl != null &&
-                                                            uploadedFileUrl !=
+                                                    _model.uploadedFileUrl !=
+                                                                null &&
+                                                            _model.uploadedFileUrl !=
                                                                 ''
-                                                        ? uploadedFileUrl
+                                                        ? _model.uploadedFileUrl
                                                         : editUserProfileUsersRecord
                                                             .photoUrl,
                                                     'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/cepac-dtrv3d/assets/cc1p30hl0z2w/no_photo.png',
@@ -282,7 +302,7 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget>
                                 children: [
                                   Expanded(
                                     child: TextFormField(
-                                      controller: yourNameController ??=
+                                      controller: _model.yourNameController ??=
                                           TextEditingController(
                                         text: editUserProfileUsersRecord
                                             .displayName,
@@ -336,6 +356,9 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget>
                                       ),
                                       style:
                                           FlutterFlowTheme.of(context).title2,
+                                      validator: _model
+                                          .yourNameControllerValidator
+                                          .asValidator(context),
                                     ),
                                   ),
                                 ],
@@ -352,8 +375,9 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget>
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 12, 0, 0),
                                       child: TextFormField(
-                                        controller: phoneNumberController ??=
-                                            TextEditingController(
+                                        controller:
+                                            _model.phoneNumberController ??=
+                                                TextEditingController(
                                           text: editUserProfileUsersRecord
                                               .phoneNumber,
                                         ),
@@ -411,6 +435,9 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget>
                                         ),
                                         style:
                                             FlutterFlowTheme.of(context).title3,
+                                        validator: _model
+                                            .phoneNumberControllerValidator
+                                            .asValidator(context),
                                       ),
                                     ),
                                   ),
@@ -719,8 +746,11 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget>
                                             'Léon Denis - Obras\nQuartas',
                                             'Os missionários da luz\nSextas'
                                           ].toList(),
-                                          onChanged: (val) => setState(
-                                              () => studyGroupValue = val),
+                                          initialValue:
+                                              editUserProfileUsersRecord
+                                                  .studyGroup!,
+                                          onChanged: (val) => setState(() =>
+                                              _model.studyGroupValue = val),
                                           optionHeight: 35,
                                           textStyle:
                                               FlutterFlowTheme.of(context)
@@ -774,8 +804,8 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget>
                                               'Sexta-Feira',
                                               'Sábado'
                                             ],
-                                            onChanged: (val) => setState(
-                                                () => workDaysValues = val),
+                                            onChanged: (val) => setState(() =>
+                                                _model.workDaysValues = val),
                                             activeColor: Color(0xFF4833F3),
                                             checkColor: Colors.white,
                                             checkboxBorderColor:
@@ -783,7 +813,8 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget>
                                             textStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .bodyText1,
-                                            initialized: workDaysValues != null,
+                                            initialized:
+                                                _model.workDaysValues != null,
                                           ),
                                         ),
                                       ),
@@ -809,7 +840,8 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget>
                                             'Atendimento fraterno'
                                           ],
                                           onChanged: (val) => setState(() =>
-                                              proposedActivitiesValues = val),
+                                              _model.proposedActivitiesValues =
+                                                  val),
                                           activeColor: Color(0xFF4833F3),
                                           checkColor: Colors.white,
                                           checkboxBorderColor:
@@ -818,7 +850,8 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget>
                                               FlutterFlowTheme.of(context)
                                                   .bodyText1,
                                           initialized:
-                                              proposedActivitiesValues != null,
+                                              _model.proposedActivitiesValues !=
+                                                  null,
                                         ),
                                       ),
                                     ),
@@ -854,25 +887,29 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget>
                                   final usersUpdateData = {
                                     ...createUsersRecordData(
                                       displayName:
-                                          yourNameController?.text ?? '',
-                                      photoUrl: uploadedFileUrl != null &&
-                                              uploadedFileUrl != ''
-                                          ? uploadedFileUrl
+                                          _model.yourNameController.text,
+                                      photoUrl: _model.uploadedFileUrl !=
+                                                  null &&
+                                              _model.uploadedFileUrl != ''
+                                          ? _model.uploadedFileUrl
                                           : editUserProfileUsersRecord.photoUrl,
-                                      studyGroup: studyGroupValue,
+                                      studyGroup: _model.studyGroupValue,
                                       phoneNumber:
-                                          phoneNumberController?.text ?? '',
+                                          _model.phoneNumberController.text,
                                     ),
-                                    'work_days': workDaysValues!.length > 0
-                                        ? workDaysValues
+                                    'work_days': _model.workDaysValues!.length >
+                                            0
+                                        ? _model.workDaysValues
                                         : editUserProfileUsersRecord.workDays!
                                             .toList(),
-                                    'proposed_activities':
-                                        proposedActivitiesValues!.length > 0
-                                            ? proposedActivitiesValues
-                                            : editUserProfileUsersRecord
-                                                .proposedActivities!
-                                                .toList(),
+                                    'proposed_activities': _model
+                                                .proposedActivitiesValues!
+                                                .length >
+                                            0
+                                        ? _model.proposedActivitiesValues
+                                        : editUserProfileUsersRecord
+                                            .proposedActivities!
+                                            .toList(),
                                   };
                                   await currentUserReference!
                                       .update(usersUpdateData);

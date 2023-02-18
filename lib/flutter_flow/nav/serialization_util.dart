@@ -7,7 +7,7 @@ import '../../backend/backend.dart';
 
 import '../../flutter_flow/lat_lng.dart';
 import '../../flutter_flow/place.dart';
-import '../../flutter_flow/local_file.dart';
+import '../../flutter_flow/uploaded_file.dart';
 
 /// SERIALIZATION HELPERS
 
@@ -27,7 +27,8 @@ String placeToString(FFPlace place) => jsonEncode({
       'zipCode': place.zipCode,
     });
 
-String localFileToString(FFLocalFile localFile) => localFile.serialize();
+String uploadedFileToString(FFUploadedFile uploadedFile) =>
+    uploadedFile.serialize();
 
 const _kDocIdDelimeter = '|';
 String _serializeDocumentReference(DocumentReference ref) {
@@ -78,8 +79,8 @@ String? serializeParam(
         return (param as Color).toCssString();
       case ParamType.FFPlace:
         return placeToString(param as FFPlace);
-      case ParamType.FFLocalFile:
-        return localFileToString(param as FFLocalFile);
+      case ParamType.FFUploadedFile:
+        return uploadedFileToString(param as FFUploadedFile);
       case ParamType.JSON:
         return json.encode(param);
       case ParamType.DocumentReference:
@@ -147,8 +148,8 @@ FFPlace placeFromString(String placeStr) {
   );
 }
 
-FFLocalFile localFileFromString(String localFileStr) =>
-    FFLocalFile.deserialize(localFileStr);
+FFUploadedFile uploadedFileFromString(String uploadedFileStr) =>
+    FFUploadedFile.deserialize(uploadedFileStr);
 
 DocumentReference _deserializeDocumentReference(
   String refStr,
@@ -172,7 +173,7 @@ enum ParamType {
   LatLng,
   Color,
   FFPlace,
-  FFLocalFile,
+  FFUploadedFile,
   JSON,
   Document,
   DocumentReference,
@@ -224,8 +225,8 @@ dynamic deserializeParam<T>(
         return fromCssColor(param);
       case ParamType.FFPlace:
         return placeFromString(param);
-      case ParamType.FFLocalFile:
-        return localFileFromString(param);
+      case ParamType.FFUploadedFile:
+        return uploadedFileFromString(param);
       case ParamType.JSON:
         return json.decode(param);
       case ParamType.DocumentReference:

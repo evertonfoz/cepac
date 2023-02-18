@@ -9,6 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'create_account_model.dart';
+export 'create_account_model.dart';
 
 class CreateAccountWidget extends StatefulWidget {
   const CreateAccountWidget({Key? key}) : super(key: key);
@@ -19,6 +22,10 @@ class CreateAccountWidget extends StatefulWidget {
 
 class _CreateAccountWidgetState extends State<CreateAccountWidget>
     with TickerProviderStateMixin {
+  late CreateAccountModel _model;
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
   final animationsMap = {
     'buttonOnPageLoadAnimation': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
@@ -34,34 +41,24 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget>
       ],
     ),
   };
-  TextEditingController? displayNameController;
-  TextEditingController? emailController;
-  TextEditingController? passwordController;
-  late bool passwordVisibility;
-  TextEditingController? passwordConfirmController;
-  late bool passwordConfirmVisibility;
-  final formKey = GlobalKey<FormState>();
-  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
+    _model = createModel(context, () => CreateAccountModel());
 
-    displayNameController = TextEditingController();
-    emailController = TextEditingController();
-    passwordController = TextEditingController();
-    passwordVisibility = false;
-    passwordConfirmController = TextEditingController();
-    passwordConfirmVisibility = false;
+    _model.displayNameController ??= TextEditingController();
+    _model.emailController ??= TextEditingController();
+    _model.passwordController ??= TextEditingController();
+    _model.passwordConfirmController ??= TextEditingController();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
   void dispose() {
-    displayNameController?.dispose();
-    emailController?.dispose();
-    passwordController?.dispose();
-    passwordConfirmController?.dispose();
+    _model.dispose();
+
     super.dispose();
   }
 
@@ -119,7 +116,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget>
               ),
               alignment: AlignmentDirectional(0, 0.8),
               child: Form(
-                key: formKey,
+                key: _model.formKey,
                 autovalidateMode: AutovalidateMode.always,
                 child: SingleChildScrollView(
                   child: Column(
@@ -212,7 +209,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget>
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
                             child: TextFormField(
-                              controller: displayNameController,
+                              controller: _model.displayNameController,
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelText: 'Nome completo',
@@ -250,18 +247,8 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget>
                                     EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
                               ),
                               style: FlutterFlowTheme.of(context).bodyText1,
-                              validator: (val) {
-                                if (val == null || val.isEmpty) {
-                                  return 'Informe seu nome completo';
-                                }
-
-                                if (!RegExp(
-                                        '^[\\w\'\\-,.][^0-9_!¡?÷?¿/\\\\+=@#\$%ˆ&*(){}|~<>;:[\\]]{3,}\$')
-                                    .hasMatch(val)) {
-                                  return 'Informe seu nome completo';
-                                }
-                                return null;
-                              },
+                              validator: _model.displayNameControllerValidator
+                                  .asValidator(context),
                             ),
                           ),
                         ),
@@ -285,7 +272,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget>
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
                             child: TextFormField(
-                              controller: emailController,
+                              controller: _model.emailController,
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelText: 'Email...',
@@ -323,17 +310,8 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget>
                                     EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
                               ),
                               style: FlutterFlowTheme.of(context).bodyText1,
-                              validator: (val) {
-                                if (val == null || val.isEmpty) {
-                                  return 'Informe seu email';
-                                }
-
-                                if (!RegExp(kTextValidatorEmailRegex)
-                                    .hasMatch(val)) {
-                                  return 'Email inválido';
-                                }
-                                return null;
-                              },
+                              validator: _model.emailControllerValidator
+                                  .asValidator(context),
                             ),
                           ),
                         ),
@@ -357,8 +335,8 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget>
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
                             child: TextFormField(
-                              controller: passwordController,
-                              obscureText: !passwordVisibility,
+                              controller: _model.passwordController,
+                              obscureText: !_model.passwordVisibility,
                               decoration: InputDecoration(
                                 labelText: 'Senha',
                                 labelStyle:
@@ -395,12 +373,12 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget>
                                     16, 20, 24, 20),
                                 suffixIcon: InkWell(
                                   onTap: () => setState(
-                                    () => passwordVisibility =
-                                        !passwordVisibility,
+                                    () => _model.passwordVisibility =
+                                        !_model.passwordVisibility,
                                   ),
                                   focusNode: FocusNode(skipTraversal: true),
                                   child: Icon(
-                                    passwordVisibility
+                                    _model.passwordVisibility
                                         ? Icons.visibility_outlined
                                         : Icons.visibility_off_outlined,
                                     color: FlutterFlowTheme.of(context)
@@ -410,17 +388,8 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget>
                                 ),
                               ),
                               style: FlutterFlowTheme.of(context).bodyText1,
-                              validator: (val) {
-                                if (val == null || val.isEmpty) {
-                                  return 'Informe sua senha';
-                                }
-
-                                if (val.length < 6) {
-                                  return 'Mínimo 6 caracteres';
-                                }
-
-                                return null;
-                              },
+                              validator: _model.passwordControllerValidator
+                                  .asValidator(context),
                             ),
                           ),
                         ),
@@ -444,8 +413,8 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget>
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
                             child: TextFormField(
-                              controller: passwordConfirmController,
-                              obscureText: !passwordConfirmVisibility,
+                              controller: _model.passwordConfirmController,
+                              obscureText: !_model.passwordConfirmVisibility,
                               decoration: InputDecoration(
                                 labelText: 'Confirme sua senha',
                                 labelStyle:
@@ -482,12 +451,12 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget>
                                     16, 20, 24, 20),
                                 suffixIcon: InkWell(
                                   onTap: () => setState(
-                                    () => passwordConfirmVisibility =
-                                        !passwordConfirmVisibility,
+                                    () => _model.passwordConfirmVisibility =
+                                        !_model.passwordConfirmVisibility,
                                   ),
                                   focusNode: FocusNode(skipTraversal: true),
                                   child: Icon(
-                                    passwordConfirmVisibility
+                                    _model.passwordConfirmVisibility
                                         ? Icons.visibility_outlined
                                         : Icons.visibility_off_outlined,
                                     color: FlutterFlowTheme.of(context)
@@ -497,13 +466,9 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget>
                                 ),
                               ),
                               style: FlutterFlowTheme.of(context).bodyText1,
-                              validator: (val) {
-                                if (val == null || val.isEmpty) {
-                                  return 'Digite novamente sua senha';
-                                }
-
-                                return null;
-                              },
+                              validator: _model
+                                  .passwordConfirmControllerValidator
+                                  .asValidator(context),
                             ),
                           ),
                         ),
@@ -520,8 +485,8 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget>
                               child: FFButtonWidget(
                                 onPressed: () async {
                                   GoRouter.of(context).prepareAuthEvent();
-                                  if (passwordController?.text !=
-                                      passwordConfirmController?.text) {
+                                  if (_model.passwordController.text !=
+                                      _model.passwordConfirmController.text) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
@@ -534,8 +499,8 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget>
 
                                   final user = await createAccountWithEmail(
                                     context,
-                                    emailController!.text,
-                                    passwordController!.text,
+                                    _model.emailController.text,
+                                    _model.passwordController.text,
                                   );
                                   if (user == null) {
                                     return;
@@ -543,7 +508,8 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget>
 
                                   final usersCreateData = createUsersRecordData(
                                     typeOfProfile: 'common',
-                                    displayName: displayNameController!.text,
+                                    displayName:
+                                        _model.displayNameController.text,
                                   );
                                   await UsersRecord.collection
                                       .doc(user.uid)

@@ -5,6 +5,9 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'post_details_model.dart';
+export 'post_details_model.dart';
 
 class PostDetailsWidget extends StatefulWidget {
   const PostDetailsWidget({Key? key}) : super(key: key);
@@ -14,19 +17,23 @@ class PostDetailsWidget extends StatefulWidget {
 }
 
 class _PostDetailsWidgetState extends State<PostDetailsWidget> {
-  TextEditingController? textController;
+  late PostDetailsModel _model;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    textController = TextEditingController();
+    _model = createModel(context, () => PostDetailsModel());
+
+    _model.textController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
   void dispose() {
-    textController?.dispose();
+    _model.dispose();
+
     super.dispose();
   }
 
@@ -415,7 +422,7 @@ class _PostDetailsWidgetState extends State<PostDetailsWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(16, 4, 0, 4),
                               child: TextFormField(
-                                controller: textController,
+                                controller: _model.textController,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   hintText: 'Comment here...',
@@ -463,6 +470,8 @@ class _PostDetailsWidgetState extends State<PostDetailsWidget> {
                                   ),
                                 ),
                                 style: FlutterFlowTheme.of(context).bodyText1,
+                                validator: _model.textControllerValidator
+                                    .asValidator(context),
                               ),
                             ),
                           ),

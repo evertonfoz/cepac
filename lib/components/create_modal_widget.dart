@@ -2,6 +2,9 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'create_modal_model.dart';
+export 'create_modal_model.dart';
 
 class CreateModalWidget extends StatefulWidget {
   const CreateModalWidget({Key? key}) : super(key: key);
@@ -11,11 +14,27 @@ class CreateModalWidget extends StatefulWidget {
 }
 
 class _CreateModalWidgetState extends State<CreateModalWidget> {
+  late CreateModalModel _model;
+
+  @override
+  void setState(VoidCallback callback) {
+    super.setState(callback);
+    _model.onUpdate();
+  }
+
   @override
   void initState() {
     super.initState();
+    _model = createModel(context, () => CreateModalModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    _model.maybeDispose();
+
+    super.dispose();
   }
 
   @override

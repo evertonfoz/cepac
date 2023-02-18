@@ -8,6 +8,9 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
+import 'change_password_model.dart';
+export 'change_password_model.dart';
 
 class ChangePasswordWidget extends StatefulWidget {
   const ChangePasswordWidget({Key? key}) : super(key: key);
@@ -18,6 +21,10 @@ class ChangePasswordWidget extends StatefulWidget {
 
 class _ChangePasswordWidgetState extends State<ChangePasswordWidget>
     with TickerProviderStateMixin {
+  late ChangePasswordModel _model;
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
   final animationsMap = {
     'buttonOnPageLoadAnimation': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
@@ -33,20 +40,21 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget>
       ],
     ),
   };
-  TextEditingController? phoneNumberController;
-  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
+    _model = createModel(context, () => ChangePasswordModel());
 
-    phoneNumberController = TextEditingController();
+    _model.phoneNumberController ??= TextEditingController();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
   void dispose() {
-    phoneNumberController?.dispose();
+    _model.dispose();
+
     super.dispose();
   }
 
@@ -84,7 +92,7 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget>
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
                 child: TextFormField(
-                  controller: phoneNumberController,
+                  controller: _model.phoneNumberController,
                   obscureText: false,
                   decoration: InputDecoration(
                     labelText: 'Informe seu email',
@@ -99,7 +107,7 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget>
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).primaryBackground,
+                        color: Color(0x00000000),
                         width: 2,
                       ),
                       borderRadius: BorderRadius.circular(8),
@@ -124,6 +132,8 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget>
                         EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
                   ),
                   style: FlutterFlowTheme.of(context).bodyText1,
+                  validator: _model.phoneNumberControllerValidator
+                      .asValidator(context),
                 ),
               ),
               Padding(
@@ -144,7 +154,7 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget>
                 padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
                 child: FFButtonWidget(
                   onPressed: () async {
-                    if (phoneNumberController!.text.isEmpty) {
+                    if (_model.phoneNumberController.text.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
@@ -155,7 +165,7 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget>
                       return;
                     }
                     await resetPassword(
-                      email: phoneNumberController!.text,
+                      email: _model.phoneNumberController.text,
                       context: context,
                     );
                   },
