@@ -27,7 +27,7 @@ dependencies:
   eca_packages:
     git:
       url: https://github.com/evertonfoz/eca_packages.git
-      ref: main
+      ref: 46ba261
   file_picker: 5.2.4
   firebase_auth: 4.2.0
   firebase_auth_platform_interface: 6.11.4

@@ -14,11 +14,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "859317682922-5sdqekavs3mm2d5691306b2b31n5n9c9.apps.googleusercontent.com",
+          "client_id": "859317682922-aej3sjeru4kt11kf7kpep3cl8jn482fh.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "br.com.cepac",
-            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+            "certificate_hash": "e183e7ffbef1325e09af3bc6a975d3bc4197bc42"
+          }
+        },
+        {
+          "client_id": "859317682922-sqgkqj3h7devverg039t30g0bsr2a1pu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.cepac",
+            "certificate_hash": "0a9ce4b75bd4e1ce9cb2b97a98fb84314c3e69bd"
           }
         },
         {
