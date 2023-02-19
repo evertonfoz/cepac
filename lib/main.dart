@@ -1,24 +1,20 @@
-<<<<<<< Updated upstream
 // ignore_for_file: unused_import
 
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/gestures.dart';
-=======
->>>>>>> Stashed changes
 import 'package:flutter/material.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'auth/firebase_user_provider.dart';
 import 'auth/auth_util.dart';
 
 import 'backend/firebase/firebase_config.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
+import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
-<<<<<<< Updated upstream
 import 'package:google_fonts/google_fonts.dart';
 import 'flutter_flow/nav/nav.dart';
-=======
->>>>>>> Stashed changes
 import 'index.dart';
 import 'main/main_initilization.dart';
 
