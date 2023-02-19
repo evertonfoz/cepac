@@ -12,6 +12,7 @@
 @import cloud_firestore;
 #endif
 
+<<<<<<< Updated upstream
 #if __has_include(<connectivity_plus/ConnectivityPlusPlugin.h>)
 #import <connectivity_plus/ConnectivityPlusPlugin.h>
 #else
@@ -24,6 +25,8 @@
 @import device_info_plus;
 #endif
 
+=======
+>>>>>>> Stashed changes
 #if __has_include(<file_picker/FilePickerPlugin.h>)
 #import <file_picker/FilePickerPlugin.h>
 #else
@@ -48,6 +51,7 @@
 @import firebase_storage;
 #endif
 
+<<<<<<< Updated upstream
 #if __has_include(<geocoding/GeocodingPlugin.h>)
 #import <geocoding/GeocodingPlugin.h>
 #else
@@ -60,18 +64,23 @@
 @import geolocator_apple;
 #endif
 
+=======
+>>>>>>> Stashed changes
 #if __has_include(<google_sign_in_ios/FLTGoogleSignInPlugin.h>)
 #import <google_sign_in_ios/FLTGoogleSignInPlugin.h>
 #else
 @import google_sign_in_ios;
 #endif
 
+<<<<<<< Updated upstream
 #if __has_include(<image_crop/ImageCropPlugin.h>)
 #import <image_crop/ImageCropPlugin.h>
 #else
 @import image_crop;
 #endif
 
+=======
+>>>>>>> Stashed changes
 #if __has_include(<image_picker_ios/FLTImagePickerPlugin.h>)
 #import <image_picker_ios/FLTImagePickerPlugin.h>
 #else
@@ -84,10 +93,17 @@
 @import package_info_plus;
 #endif
 
+<<<<<<< Updated upstream
 #if __has_include(<path_provider_ios/FLTPathProviderPlugin.h>)
 #import <path_provider_ios/FLTPathProviderPlugin.h>
 #else
 @import path_provider_ios;
+=======
+#if __has_include(<path_provider_foundation/PathProviderPlugin.h>)
+#import <path_provider_foundation/PathProviderPlugin.h>
+#else
+@import path_provider_foundation;
+>>>>>>> Stashed changes
 #endif
 
 #if __has_include(<share_plus/FLTSharePlusPlugin.h>)
@@ -114,12 +130,15 @@
 @import sqflite;
 #endif
 
+<<<<<<< Updated upstream
 #if __has_include(<status_bar_control/StatusBarControlPlugin.h>)
 #import <status_bar_control/StatusBarControlPlugin.h>
 #else
 @import status_bar_control;
 #endif
 
+=======
+>>>>>>> Stashed changes
 #if __has_include(<url_launcher_ios/FLTURLLauncherPlugin.h>)
 #import <url_launcher_ios/FLTURLLauncherPlugin.h>
 #else
@@ -142,12 +161,16 @@
 
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
   [FLTFirebaseFirestorePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseFirestorePlugin"]];
+<<<<<<< Updated upstream
   [ConnectivityPlusPlugin registerWithRegistrar:[registry registrarForPlugin:@"ConnectivityPlusPlugin"]];
   [FLTDeviceInfoPlusPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTDeviceInfoPlusPlugin"]];
+=======
+>>>>>>> Stashed changes
   [FilePickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FilePickerPlugin"]];
   [FLTFirebaseAuthPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseAuthPlugin"]];
   [FLTFirebaseCorePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseCorePlugin"]];
   [FLTFirebaseStoragePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseStoragePlugin"]];
+<<<<<<< Updated upstream
   [GeocodingPlugin registerWithRegistrar:[registry registrarForPlugin:@"GeocodingPlugin"]];
   [GeolocatorPlugin registerWithRegistrar:[registry registrarForPlugin:@"GeolocatorPlugin"]];
   [FLTGoogleSignInPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTGoogleSignInPlugin"]];
@@ -155,11 +178,20 @@
   [FLTImagePickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTImagePickerPlugin"]];
   [FLTPackageInfoPlusPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTPackageInfoPlusPlugin"]];
   [FLTPathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTPathProviderPlugin"]];
+=======
+  [FLTGoogleSignInPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTGoogleSignInPlugin"]];
+  [FLTImagePickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTImagePickerPlugin"]];
+  [FLTPackageInfoPlusPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTPackageInfoPlusPlugin"]];
+  [PathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"PathProviderPlugin"]];
+>>>>>>> Stashed changes
   [FLTSharePlusPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTSharePlusPlugin"]];
   [FLTSharedPreferencesPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTSharedPreferencesPlugin"]];
   [SignInWithApplePlugin registerWithRegistrar:[registry registrarForPlugin:@"SignInWithApplePlugin"]];
   [SqflitePlugin registerWithRegistrar:[registry registrarForPlugin:@"SqflitePlugin"]];
+<<<<<<< Updated upstream
   [StatusBarControlPlugin registerWithRegistrar:[registry registrarForPlugin:@"StatusBarControlPlugin"]];
+=======
+>>>>>>> Stashed changes
   [FLTURLLauncherPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTURLLauncherPlugin"]];
   [FLTVideoPlayerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTVideoPlayerPlugin"]];
   [WakelockPlugin registerWithRegistrar:[registry registrarForPlugin:@"WakelockPlugin"]];

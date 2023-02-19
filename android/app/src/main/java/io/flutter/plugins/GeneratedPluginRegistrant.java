@@ -21,6 +21,7 @@ public final class GeneratedPluginRegistrant {
       Log.e(TAG, "Error registering plugin cloud_firestore, io.flutter.plugins.firebase.firestore.FlutterFirebaseFirestorePlugin", e);
     }
     try {
+<<<<<<< Updated upstream
       flutterEngine.getPlugins().add(new dev.fluttercommunity.plus.connectivity.ConnectivityPlugin());
     } catch(Exception e) {
       Log.e(TAG, "Error registering plugin connectivity_plus, dev.fluttercommunity.plus.connectivity.ConnectivityPlugin", e);
@@ -31,6 +32,8 @@ public final class GeneratedPluginRegistrant {
       Log.e(TAG, "Error registering plugin device_info_plus, dev.fluttercommunity.plus.device_info.DeviceInfoPlusPlugin", e);
     }
     try {
+=======
+>>>>>>> Stashed changes
       flutterEngine.getPlugins().add(new com.mr.flutter.plugin.filepicker.FilePickerPlugin());
     } catch(Exception e) {
       Log.e(TAG, "Error registering plugin file_picker, com.mr.flutter.plugin.filepicker.FilePickerPlugin", e);
@@ -56,6 +59,7 @@ public final class GeneratedPluginRegistrant {
       Log.e(TAG, "Error registering plugin flutter_plugin_android_lifecycle, io.flutter.plugins.flutter_plugin_android_lifecycle.FlutterAndroidLifecyclePlugin", e);
     }
     try {
+<<<<<<< Updated upstream
       flutterEngine.getPlugins().add(new com.baseflow.geocoding.GeocodingPlugin());
     } catch(Exception e) {
       Log.e(TAG, "Error registering plugin geocoding, com.baseflow.geocoding.GeocodingPlugin", e);
@@ -66,6 +70,8 @@ public final class GeneratedPluginRegistrant {
       Log.e(TAG, "Error registering plugin geolocator_android, com.baseflow.geolocator.GeolocatorPlugin", e);
     }
     try {
+=======
+>>>>>>> Stashed changes
       flutterEngine.getPlugins().add(new io.github.zeshuaro.google_api_headers.GoogleApiHeadersPlugin());
     } catch(Exception e) {
       Log.e(TAG, "Error registering plugin google_api_headers, io.github.zeshuaro.google_api_headers.GoogleApiHeadersPlugin", e);
@@ -76,11 +82,14 @@ public final class GeneratedPluginRegistrant {
       Log.e(TAG, "Error registering plugin google_sign_in_android, io.flutter.plugins.googlesignin.GoogleSignInPlugin", e);
     }
     try {
+<<<<<<< Updated upstream
       flutterEngine.getPlugins().add(new com.lykhonis.imagecrop.ImageCropPlugin());
     } catch(Exception e) {
       Log.e(TAG, "Error registering plugin image_crop, com.lykhonis.imagecrop.ImageCropPlugin", e);
     }
     try {
+=======
+>>>>>>> Stashed changes
       flutterEngine.getPlugins().add(new io.flutter.plugins.imagepicker.ImagePickerPlugin());
     } catch(Exception e) {
       Log.e(TAG, "Error registering plugin image_picker_android, io.flutter.plugins.imagepicker.ImagePickerPlugin", e);
@@ -116,11 +125,14 @@ public final class GeneratedPluginRegistrant {
       Log.e(TAG, "Error registering plugin sqflite, com.tekartik.sqflite.SqflitePlugin", e);
     }
     try {
+<<<<<<< Updated upstream
       flutterEngine.getPlugins().add(new com.foo.statusbarcontrol.StatusBarControlPlugin());
     } catch(Exception e) {
       Log.e(TAG, "Error registering plugin status_bar_control, com.foo.statusbarcontrol.StatusBarControlPlugin", e);
     }
     try {
+=======
+>>>>>>> Stashed changes
       flutterEngine.getPlugins().add(new io.flutter.plugins.urllauncher.UrlLauncherPlugin());
     } catch(Exception e) {
       Log.e(TAG, "Error registering plugin url_launcher_android, io.flutter.plugins.urllauncher.UrlLauncherPlugin", e);
