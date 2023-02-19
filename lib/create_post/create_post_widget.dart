@@ -10,6 +10,9 @@ import 'dart:io';
 import '../flutter_flow/random_data_util.dart' as random_data;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'create_post_model.dart';
+export 'create_post_model.dart';
 
 class CreatePostWidget extends StatefulWidget {
   const CreatePostWidget({Key? key}) : super(key: key);
@@ -19,20 +22,23 @@ class CreatePostWidget extends StatefulWidget {
 }
 
 class _CreatePostWidgetState extends State<CreatePostWidget> {
-  TextEditingController? textController;
-  var placePickerValue = FFPlace();
+  late CreatePostModel _model;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    textController = TextEditingController();
+    _model = createModel(context, () => CreatePostModel());
+
+    _model.textController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
   void dispose() {
-    textController?.dispose();
+    _model.dispose();
+
     super.dispose();
   }
 
@@ -141,7 +147,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
                                   children: [
                                     Expanded(
                                       child: TextFormField(
-                                        controller: textController,
+                                        controller: _model.textController,
                                         obscureText: false,
                                         decoration: InputDecoration(
                                           hintText: 'Comment....',
@@ -160,9 +166,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
                                           ),
                                           focusedBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryBackground,
+                                              color: Color(0x00000000),
                                               width: 1,
                                             ),
                                             borderRadius:
@@ -193,6 +197,9 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
                                             .bodyText1,
                                         textAlign: TextAlign.start,
                                         maxLines: 4,
+                                        validator: _model
+                                            .textControllerValidator
+                                            .asValidator(context),
                                       ),
                                     ),
                                   ],
@@ -213,7 +220,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
                         androidGoogleMapsApiKey: '',
                         webGoogleMapsApiKey: '',
                         onSelect: (place) async {
-                          setState(() => placePickerValue = place);
+                          setState(() => _model.placePickerValue = place);
                         },
                         defaultText: 'Location',
                         icon: Icon(

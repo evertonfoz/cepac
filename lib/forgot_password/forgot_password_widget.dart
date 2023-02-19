@@ -4,6 +4,9 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'forgot_password_model.dart';
+export 'forgot_password_model.dart';
 
 class ForgotPasswordWidget extends StatefulWidget {
   const ForgotPasswordWidget({Key? key}) : super(key: key);
@@ -13,19 +16,23 @@ class ForgotPasswordWidget extends StatefulWidget {
 }
 
 class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
-  TextEditingController? phoneNumberController;
+  late ForgotPasswordModel _model;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    phoneNumberController = TextEditingController();
+    _model = createModel(context, () => ForgotPasswordModel());
+
+    _model.phoneNumberController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
   void dispose() {
-    phoneNumberController?.dispose();
+    _model.dispose();
+
     super.dispose();
   }
 
@@ -61,7 +68,7 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
           Padding(
             padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
             child: TextFormField(
-              controller: phoneNumberController,
+              controller: _model.phoneNumberController,
               obscureText: false,
               decoration: InputDecoration(
                 labelText: 'Informe seu email',
@@ -76,7 +83,7 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).primaryBackground,
+                    color: Color(0x00000000),
                     width: 2,
                   ),
                   borderRadius: BorderRadius.circular(8),
@@ -100,6 +107,8 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                 contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
               ),
               style: FlutterFlowTheme.of(context).bodyText1,
+              validator:
+                  _model.phoneNumberControllerValidator.asValidator(context),
             ),
           ),
           Padding(
@@ -120,7 +129,7 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
             padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
             child: FFButtonWidget(
               onPressed: () async {
-                if (phoneNumberController!.text.isEmpty) {
+                if (_model.phoneNumberController.text.isEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
@@ -131,7 +140,7 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                   return;
                 }
                 await resetPassword(
-                  email: phoneNumberController!.text,
+                  email: _model.phoneNumberController.text,
                   context: context,
                 );
               },

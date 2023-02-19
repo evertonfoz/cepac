@@ -6,6 +6,9 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/upload_media.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'create_dog_profile_new_model.dart';
+export 'create_dog_profile_new_model.dart';
 
 class CreateDogProfileNewWidget extends StatefulWidget {
   const CreateDogProfileNewWidget({Key? key}) : super(key: key);
@@ -16,28 +19,25 @@ class CreateDogProfileNewWidget extends StatefulWidget {
 }
 
 class _CreateDogProfileNewWidgetState extends State<CreateDogProfileNewWidget> {
-  bool isMediaUploading = false;
-  String uploadedFileUrl = '';
+  late CreateDogProfileNewModel _model;
 
-  TextEditingController? dogNameController;
-  TextEditingController? dogBreedController;
-  TextEditingController? dogAgeController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    dogAgeController = TextEditingController();
-    dogBreedController = TextEditingController();
-    dogNameController = TextEditingController();
+    _model = createModel(context, () => CreateDogProfileNewModel());
+
+    _model.dogNameController ??= TextEditingController();
+    _model.dogBreedController ??= TextEditingController();
+    _model.dogAgeController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
   void dispose() {
-    dogAgeController?.dispose();
-    dogBreedController?.dispose();
-    dogNameController?.dispose();
+    _model.dispose();
+
     super.dispose();
   }
 
@@ -117,7 +117,8 @@ class _CreateDogProfileNewWidgetState extends State<CreateDogProfileNewWidget> {
                       if (selectedMedia != null &&
                           selectedMedia.every((m) =>
                               validateFileFormat(m.storagePath, context))) {
-                        setState(() => isMediaUploading = true);
+                        setState(() => _model.isMediaUploading = true);
+                        var selectedUploadedFiles = <FFUploadedFile>[];
                         var downloadUrls = <String>[];
                         try {
                           showUploadMessage(
@@ -125,6 +126,15 @@ class _CreateDogProfileNewWidgetState extends State<CreateDogProfileNewWidget> {
                             'Uploading file...',
                             showLoading: true,
                           );
+                          selectedUploadedFiles = selectedMedia
+                              .map((m) => FFUploadedFile(
+                                    name: m.storagePath.split('/').last,
+                                    bytes: m.bytes,
+                                    height: m.dimensions?.height,
+                                    width: m.dimensions?.width,
+                                  ))
+                              .toList();
+
                           downloadUrls = (await Future.wait(
                             selectedMedia.map(
                               (m) async =>
@@ -136,10 +146,16 @@ class _CreateDogProfileNewWidgetState extends State<CreateDogProfileNewWidget> {
                               .toList();
                         } finally {
                           ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                          isMediaUploading = false;
+                          _model.isMediaUploading = false;
                         }
-                        if (downloadUrls.length == selectedMedia.length) {
-                          setState(() => uploadedFileUrl = downloadUrls.first);
+                        if (selectedUploadedFiles.length ==
+                                selectedMedia.length &&
+                            downloadUrls.length == selectedMedia.length) {
+                          setState(() {
+                            _model.uploadedLocalFile =
+                                selectedUploadedFiles.first;
+                            _model.uploadedFileUrl = downloadUrls.first;
+                          });
                           showUploadMessage(context, 'Success!');
                         } else {
                           setState(() {});
@@ -151,7 +167,7 @@ class _CreateDogProfileNewWidgetState extends State<CreateDogProfileNewWidget> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: Image.network(
-                        uploadedFileUrl,
+                        _model.uploadedFileUrl,
                         width: MediaQuery.of(context).size.width * 0.9,
                         height: 200,
                         fit: BoxFit.cover,
@@ -168,7 +184,7 @@ class _CreateDogProfileNewWidgetState extends State<CreateDogProfileNewWidget> {
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                           child: TextFormField(
-                            controller: dogNameController,
+                            controller: _model.dogNameController,
                             obscureText: false,
                             decoration: InputDecoration(
                               labelText: 'Dog Name',
@@ -216,6 +232,8 @@ class _CreateDogProfileNewWidgetState extends State<CreateDogProfileNewWidget> {
                               ),
                             ),
                             style: FlutterFlowTheme.of(context).title2,
+                            validator: _model.dogNameControllerValidator
+                                .asValidator(context),
                           ),
                         ),
                       ),
@@ -231,7 +249,7 @@ class _CreateDogProfileNewWidgetState extends State<CreateDogProfileNewWidget> {
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                           child: TextFormField(
-                            controller: dogBreedController,
+                            controller: _model.dogBreedController,
                             obscureText: false,
                             decoration: InputDecoration(
                               labelText: 'Dog Breed',
@@ -279,6 +297,8 @@ class _CreateDogProfileNewWidgetState extends State<CreateDogProfileNewWidget> {
                               ),
                             ),
                             style: FlutterFlowTheme.of(context).title3,
+                            validator: _model.dogBreedControllerValidator
+                                .asValidator(context),
                           ),
                         ),
                       ),
@@ -294,7 +314,7 @@ class _CreateDogProfileNewWidgetState extends State<CreateDogProfileNewWidget> {
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                           child: TextFormField(
-                            controller: dogAgeController,
+                            controller: _model.dogAgeController,
                             obscureText: false,
                             decoration: InputDecoration(
                               labelText: 'Dog Age',
@@ -342,6 +362,8 @@ class _CreateDogProfileNewWidgetState extends State<CreateDogProfileNewWidget> {
                               ),
                             ),
                             style: FlutterFlowTheme.of(context).title3,
+                            validator: _model.dogAgeControllerValidator
+                                .asValidator(context),
                           ),
                         ),
                       ),

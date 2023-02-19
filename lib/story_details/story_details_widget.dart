@@ -5,7 +5,10 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'story_details_model.dart';
+export 'story_details_model.dart';
 
 class StoryDetailsWidget extends StatefulWidget {
   const StoryDetailsWidget({
@@ -20,14 +23,23 @@ class StoryDetailsWidget extends StatefulWidget {
 }
 
 class _StoryDetailsWidgetState extends State<StoryDetailsWidget> {
-  PageController? pageViewController;
+  late StoryDetailsModel _model;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
+    _model = createModel(context, () => StoryDetailsModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    _model.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -46,7 +58,7 @@ class _StoryDetailsWidgetState extends State<StoryDetailsWidget> {
                 child: Stack(
                   children: [
                     PageView(
-                      controller: pageViewController ??= PageController(
+                      controller: _model.pageViewController ??= PageController(
                           initialPage: min(
                               valueOrDefault<int>(
                                 widget.initialStoryIndex,
@@ -377,17 +389,18 @@ class _StoryDetailsWidgetState extends State<StoryDetailsWidget> {
                       child: Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
                         child: smooth_page_indicator.SmoothPageIndicator(
-                          controller: pageViewController ??= PageController(
-                              initialPage: min(
-                                  valueOrDefault<int>(
-                                    widget.initialStoryIndex,
-                                    0,
-                                  ),
-                                  2)),
+                          controller: _model.pageViewController ??=
+                              PageController(
+                                  initialPage: min(
+                                      valueOrDefault<int>(
+                                        widget.initialStoryIndex,
+                                        0,
+                                      ),
+                                      2)),
                           count: 3,
                           axisDirection: Axis.vertical,
                           onDotClicked: (i) {
-                            pageViewController!.animateToPage(
+                            _model.pageViewController!.animateToPage(
                               i,
                               duration: Duration(milliseconds: 500),
                               curve: Curves.ease,

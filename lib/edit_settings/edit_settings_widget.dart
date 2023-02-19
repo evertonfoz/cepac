@@ -9,6 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'edit_settings_model.dart';
+export 'edit_settings_model.dart';
 
 class EditSettingsWidget extends StatefulWidget {
   const EditSettingsWidget({Key? key}) : super(key: key);
@@ -19,6 +22,8 @@ class EditSettingsWidget extends StatefulWidget {
 
 class _EditSettingsWidgetState extends State<EditSettingsWidget>
     with TickerProviderStateMixin {
+  late EditSettingsModel _model;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
   var hasContainerTriggered1 = false;
   var hasContainerTriggered2 = false;
@@ -54,6 +59,8 @@ class _EditSettingsWidgetState extends State<EditSettingsWidget>
   @override
   void initState() {
     super.initState();
+    _model = createModel(context, () => EditSettingsModel());
+
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
@@ -62,6 +69,13 @@ class _EditSettingsWidgetState extends State<EditSettingsWidget>
     );
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    _model.dispose();
+
+    super.dispose();
   }
 
   @override

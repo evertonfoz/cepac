@@ -7,6 +7,9 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'add_chat_users_model.dart';
+export 'add_chat_users_model.dart';
 
 class AddChatUsersWidget extends StatefulWidget {
   const AddChatUsersWidget({Key? key}) : super(key: key);
@@ -16,26 +19,23 @@ class AddChatUsersWidget extends StatefulWidget {
 }
 
 class _AddChatUsersWidgetState extends State<AddChatUsersWidget> {
-  Map<UsersRecord, bool> checkboxListTileValueMap = {};
-  List<UsersRecord> get checkboxListTileCheckedItems =>
-      checkboxListTileValueMap.entries
-          .where((e) => e.value)
-          .map((e) => e.key)
-          .toList();
+  late AddChatUsersModel _model;
 
-  TextEditingController? textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    textController = TextEditingController();
+    _model = createModel(context, () => AddChatUsersModel());
+
+    _model.textController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
   void dispose() {
-    textController?.dispose();
+    _model.dispose();
+
     super.dispose();
   }
 
@@ -97,7 +97,7 @@ class _AddChatUsersWidgetState extends State<AddChatUsersWidget> {
             ),
             alignment: AlignmentDirectional(0, 0),
             child: TextFormField(
-              controller: textController,
+              controller: _model.textController,
               obscureText: false,
               decoration: InputDecoration(
                 hintText: 'Search for friends...',
@@ -152,6 +152,7 @@ class _AddChatUsersWidgetState extends State<AddChatUsersWidget> {
                 ),
               ),
               style: FlutterFlowTheme.of(context).bodyText1,
+              validator: _model.textControllerValidator.asValidator(context),
             ),
           ),
           Expanded(
@@ -240,10 +241,11 @@ class _AddChatUsersWidgetState extends State<AddChatUsersWidget> {
                                               .secondaryText,
                                     ),
                                     child: CheckboxListTile(
-                                      value: checkboxListTileValueMap[
+                                      value: _model.checkboxListTileValueMap[
                                           listViewUsersRecord] ??= false,
                                       onChanged: (newValue) async {
-                                        setState(() => checkboxListTileValueMap[
+                                        setState(() => _model
+                                                .checkboxListTileValueMap[
                                             listViewUsersRecord] = newValue!);
                                       },
                                       title: Text(

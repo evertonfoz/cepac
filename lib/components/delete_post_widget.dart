@@ -3,6 +3,9 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'delete_post_model.dart';
+export 'delete_post_model.dart';
 
 class DeletePostWidget extends StatefulWidget {
   const DeletePostWidget({Key? key}) : super(key: key);
@@ -12,11 +15,27 @@ class DeletePostWidget extends StatefulWidget {
 }
 
 class _DeletePostWidgetState extends State<DeletePostWidget> {
+  late DeletePostModel _model;
+
+  @override
+  void setState(VoidCallback callback) {
+    super.setState(callback);
+    _model.onUpdate();
+  }
+
   @override
   void initState() {
     super.initState();
+    _model = createModel(context, () => DeletePostModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    _model.maybeDispose();
+
+    super.dispose();
   }
 
   @override

@@ -5,6 +5,9 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'create_group_chat_model.dart';
+export 'create_group_chat_model.dart';
 
 class CreateGroupChatWidget extends StatefulWidget {
   const CreateGroupChatWidget({Key? key}) : super(key: key);
@@ -14,26 +17,23 @@ class CreateGroupChatWidget extends StatefulWidget {
 }
 
 class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
-  Map<UsersRecord, bool> checkboxListTileValueMap = {};
-  List<UsersRecord> get checkboxListTileCheckedItems =>
-      checkboxListTileValueMap.entries
-          .where((e) => e.value)
-          .map((e) => e.key)
-          .toList();
+  late CreateGroupChatModel _model;
 
-  TextEditingController? textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    textController = TextEditingController();
+    _model = createModel(context, () => CreateGroupChatModel());
+
+    _model.textController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
   void dispose() {
-    textController?.dispose();
+    _model.dispose();
+
     super.dispose();
   }
 
@@ -97,7 +97,7 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
             child: Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0, 1, 0, 1),
               child: TextFormField(
-                controller: textController,
+                controller: _model.textController,
                 obscureText: false,
                 decoration: InputDecoration(
                   hintText: 'Search for friends...',
@@ -152,6 +152,7 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
                   ),
                 ),
                 style: FlutterFlowTheme.of(context).bodyText1,
+                validator: _model.textControllerValidator.asValidator(context),
               ),
             ),
           ),
@@ -238,10 +239,11 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
                                               .secondaryText,
                                     ),
                                     child: CheckboxListTile(
-                                      value: checkboxListTileValueMap[
+                                      value: _model.checkboxListTileValueMap[
                                           listViewUsersRecord] ??= false,
                                       onChanged: (newValue) async {
-                                        setState(() => checkboxListTileValueMap[
+                                        setState(() => _model
+                                                .checkboxListTileValueMap[
                                             listViewUsersRecord] = newValue!);
                                       },
                                       title: Text(

@@ -3,6 +3,9 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'delete_story_model.dart';
+export 'delete_story_model.dart';
 
 class DeleteStoryWidget extends StatefulWidget {
   const DeleteStoryWidget({Key? key}) : super(key: key);
@@ -12,11 +15,27 @@ class DeleteStoryWidget extends StatefulWidget {
 }
 
 class _DeleteStoryWidgetState extends State<DeleteStoryWidget> {
+  late DeleteStoryModel _model;
+
+  @override
+  void setState(VoidCallback callback) {
+    super.setState(callback);
+    _model.onUpdate();
+  }
+
   @override
   void initState() {
     super.initState();
+    _model = createModel(context, () => DeleteStoryModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    _model.maybeDispose();
+
+    super.dispose();
   }
 
   @override
