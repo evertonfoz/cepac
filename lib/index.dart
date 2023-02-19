@@ -17,6 +17,5 @@ export 'create_dog_profile_new/create_dog_profile_new_widget.dart'
     show CreateDogProfileNewWidget;
 export 'chat_page/chat_page_widget.dart' show ChatPageWidget;
 export 'all_chats_page/all_chats_page_widget.dart' show AllChatsPageWidget;
-export 'add_chat_users/add_chat_users_widget.dart' show AddChatUsersWidget;
 export 'create_group_chat/create_group_chat_widget.dart'
     show CreateGroupChatWidget;

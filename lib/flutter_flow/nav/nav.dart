@@ -165,11 +165,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => AllChatsPageWidget(),
             ),
             FFRoute(
-              name: 'addChatUsers',
-              path: 'addChatUsers',
-              builder: (context, params) => AddChatUsersWidget(),
-            ),
-            FFRoute(
               name: 'createGroupChat',
               path: 'createGroupChat',
               builder: (context, params) => CreateGroupChatWidget(),
