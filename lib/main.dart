@@ -27,8 +27,8 @@ void main() async {
 
   await FlutterFlowTheme.initialize();
 
-  // runApp(MyApp());
-  runApp(DevicePreview(builder: (context) => MyApp()));
+  runApp(MyApp());
+  // runApp(DevicePreview(builder: (context) => MyApp()));
 }
 
 class MyApp extends StatefulWidget {
