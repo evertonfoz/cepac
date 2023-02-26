@@ -1,4 +1,4 @@
-package br.com.cepac
+package br.com.cepacfoz
 
 import io.flutter.embedding.android.FlutterActivity
 
